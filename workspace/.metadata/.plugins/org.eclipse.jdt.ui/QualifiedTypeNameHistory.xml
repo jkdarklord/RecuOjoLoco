@@ -18,4 +18,6 @@
 <fullyQualifiedTypeName name="edu.uci.ics.crawler4j.fetcher.PageFetchResult"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Document"/>
+<fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
+<fullyQualifiedTypeName name="org.jsoup.Jsoup"/>
 </qualifiedTypeNameHistroy>

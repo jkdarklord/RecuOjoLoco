@@ -1,6 +1,7 @@
 package test;
 
 import org.apache.log4j.BasicConfigurator;
+import javax.swing.JOptionPane;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -31,7 +32,10 @@ public class Controller {
              * URLs that are fetched and then the crawler starts following links
              * which are found in these pages
              */
-            controller.addSeed("http://metroid.wikia.com/wiki/");
+            
+            /*Apagado para la agilizacion del debuggeo*/
+            //controller.addSeed(JOptionPane.showInputDialog("Input the URL seed"));
+            controller.addSeed("http://metroid.wikia.com/wiki/Samus_Aran");
 
             /*
              * Start the crawl. This is a blocking operation, meaning that your code

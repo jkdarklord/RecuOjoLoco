@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 import org.apache.http.Header;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class MyCrawler extends WebCrawler {
 
@@ -28,7 +32,7 @@ public class MyCrawler extends WebCrawler {
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
             counter++;
-            return !FILTERS.matcher(href).matches() && href.startsWith("http://metroid.wikia.com/wiki/") && counter<100;
+            return !FILTERS.matcher(href).matches() && href.startsWith("http://metroid.wikia.com/wiki/Samus_Aran") && counter<100;
     }
 
     
@@ -38,10 +42,15 @@ public class MyCrawler extends WebCrawler {
             visited+=page.getWebURL()+"\n";
             try{
             	String line = new String(page.getContentData(),"UTF-8");
-            	line = line.replaceAll("<.*?>","");
-            	line = line.replaceAll("(?m)^\\s*$[\n\r]{1,}", "");
-    			PrintWriter pw = new PrintWriter(new FileWriter(url.replaceAll("http://metroid.wikia.com/wiki/", "")+".txt"));
-    			pw.write(line);
+            	Document doc = Jsoup.parse(line);
+            	Elements paragraphs = doc.select("p");
+            	PrintWriter pw = new PrintWriter(new FileWriter(url.replaceAll("http://metroid.wikia.com/wiki/", "")+".txt"));
+            	  for(Element p : paragraphs)
+            		  pw.write(p.text()+"\n");
+            	    //JOptionPane.showMessageDialog(null,p.text());
+            	/*line = line.replaceAll("<.*?>","");
+            	line = line.replaceAll("(?m)^\\s*$[\n\r]{1,}", "");*/
+    			//pw.write(line);
     			pw.write("\r\n");
     			pw.close();
     		
