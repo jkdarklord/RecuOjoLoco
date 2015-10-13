@@ -35,8 +35,9 @@ public class Controller {
             
             /*Apagado para la agilizacion del debuggeo*/
             //controller.addSeed(JOptionPane.showInputDialog("Input the URL seed"));
-            controller.addSeed("http://metroid.wikia.com/wiki/Samus_Aran");
-
+            //controller.addSeed("http://metroid.wikia.com/wiki/Samus_Aran");
+            controller.addSeed("http://touhou.wikia.com/wiki/Marisa_Kirisame");
+            
             /*
              * Start the crawl. This is a blocking operation, meaning that your code
              * will reach the line after this only when crawling is finished.

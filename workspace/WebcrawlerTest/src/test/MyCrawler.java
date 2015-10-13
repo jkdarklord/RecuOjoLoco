@@ -32,7 +32,8 @@ public class MyCrawler extends WebCrawler {
     public boolean shouldVisit(WebURL url) {
             String href = url.getURL().toLowerCase();
             counter++;
-            return !FILTERS.matcher(href).matches() && href.startsWith("http://metroid.wikia.com/wiki/Samus_Aran") && counter<100;
+            //return !FILTERS.matcher(href).matches() && href.startsWith("http://metroid.wikia.com/wiki/Samus_Aran") && counter<100;
+            return !FILTERS.matcher(href).matches() && href.startsWith("http://touhou.wikia.com/wiki/Marisa_Kirisame") && counter<100;
     }
 
     
@@ -44,7 +45,8 @@ public class MyCrawler extends WebCrawler {
             	String line = new String(page.getContentData(),"UTF-8");
             	Document doc = Jsoup.parse(line);
             	Elements paragraphs = doc.select("p");
-            	PrintWriter pw = new PrintWriter(new FileWriter(url.replaceAll("http://metroid.wikia.com/wiki/", "")+".txt"));
+            	//PrintWriter pw = new PrintWriter(new FileWriter(url.replaceAll("http://metroid.wikia.com/wiki/", "")+".txt"));
+            	PrintWriter pw = new PrintWriter(new FileWriter(url.replaceAll("http://touhou.wikia.com/wiki/", "")+".txt"));
             	  for(Element p : paragraphs)
             		  pw.write(p.text()+"\n");
             	    //JOptionPane.showMessageDialog(null,p.text());
