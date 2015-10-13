@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Path"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.util.StringTokenizer"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.crawler.CrawlConfig"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.fetcher.PageFetcher"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.crawler.CrawlController"/>
+<fullyQualifiedTypeName name="org.apache.log4j.BasicConfigurator"/>
+<fullyQualifiedTypeName name="edu.uci.ics.crawler4j.fetcher.PageFetchResult"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="org.w3c.dom.Document"/>
+</qualifiedTypeNameHistroy>
