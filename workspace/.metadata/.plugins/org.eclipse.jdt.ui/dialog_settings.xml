@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<item value="C:\Documents and Settings\zayda\Desktop\RecuOjoLoco\External JARs" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="FatJarPackageWizard">
-		<item value="C:\Users\B25201\Desktop\workspace" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="calculos - Calculo de distancias euclidianas" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="C:\Users\B25201\Desktop\Calculo de distancias.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="C:\Users\B25201\Desktop\workspace.xml" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
+		<item value="DeploymentSettings - WebcrawlerTest" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="C:\Documents and Settings\zayda\Desktop\WebcrawlerTest.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="2" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Documents and Settings\zayda\Desktop\WebcrawlerTest.jar"/>
 			<item value="C:\Users\B25201\Desktop\Calculo de distancias.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
@@ -22,6 +23,11 @@
 		<item value="1" key="rootMode"/>
 		<item value="false" key="linkWithEditor"/>
 	</section>
+	<section name="JavaBuildConfigurationBlock">
+		<item value="false" key="expanded2"/>
+		<item value="false" key="expanded1"/>
+		<item value="true" key="expanded0"/>
+	</section>
 	<section name="NewClassWizardPage">
 		<item value="false" key="create_constructor"/>
 		<item value="true" key="create_unimplemented"/>
@@ -32,7 +38,7 @@
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item value="2" key="pageIndex"/>
+		<item value="3" key="pageIndex"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>

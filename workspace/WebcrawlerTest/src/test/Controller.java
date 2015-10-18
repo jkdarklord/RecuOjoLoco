@@ -1,49 +1,46 @@
 package test;
 
 import org.apache.log4j.BasicConfigurator;
-import javax.swing.JOptionPane;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Controller {
 
-    public static void main(String[] args) throws Exception {
-            String crawlStorageFolder = "../data/";
-            int numberOfCrawlers = 1;
+    public void startCrawling(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName) throws Exception {
+            String crawlStorageFolder = "/data/";
+            int numberOfCrawlers = crawlerCount;
             BasicConfigurator.configure();
 
             CrawlConfig config = new CrawlConfig();
             config.setCrawlStorageFolder(crawlStorageFolder);
 
-            /*
-             * Instantiate the controller for this crawl.
-             */
             PageFetcher pageFetcher = new PageFetcher(config);
             RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
             RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
             CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 
-            /*
-             * For each crawl, you need to add some seed urls. These are the first
-             * URLs that are fetched and then the crawler starts following links
-             * which are found in these pages
-             */
+            controller.addSeed(seed);
             
-            /*Apagado para la agilizacion del debuggeo*/
-            //controller.addSeed(JOptionPane.showInputDialog("Input the URL seed"));
-            //controller.addSeed("http://metroid.wikia.com/wiki/Samus_Aran");
-            controller.addSeed("http://touhou.wikia.com/wiki/Marisa_Kirisame");
+            setParameters(seed,crawlerCount,limitCrawling,documentMax,directoryName);
             
-            /*
-             * Start the crawl. This is a blocking operation, meaning that your code
-             * will reach the line after this only when crawling is finished.
-             */
             controller.start(MyCrawler.class, numberOfCrawlers);
-            System.out.println("ALL DONE!");
-            System.out.println("Okay, here's what I got.\n" + MyCrawler.visited);
+    }
+    
+    
+    public void setParameters(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName){
+        MyCrawler.urlDomain = seed;
+        MyCrawler.directory = new File(seed);
+        MyCrawler.limit=limitCrawling;
+        MyCrawler.maxCount=documentMax;
+        Path currentRelativePath = Paths.get("");
+        MyCrawler.directory = new File(currentRelativePath.toAbsolutePath().toString()+"\\"+directoryName);
+        MyCrawler.directory.mkdirs();
     }
 }
