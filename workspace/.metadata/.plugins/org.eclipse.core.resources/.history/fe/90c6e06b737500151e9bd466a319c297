@@ -9,7 +9,6 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -30,7 +29,7 @@ public class Controller {
 	}
 
     public void startCrawling(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName) throws Exception {
-            String crawlStorageFolder = "/data/";
+            /*String crawlStorageFolder = "/data/";
             int numberOfCrawlers = crawlerCount;
             BasicConfigurator.configure();
 
@@ -42,18 +41,16 @@ public class Controller {
             RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
             CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 
-            controller.addSeed(seed);
+            controller.addSeed(seed);*/
+            addSeedToIndex(seed);
             
             setParameters(seed,crawlerCount,limitCrawling,documentMax,directoryName);
             
-            controller.start(MyCrawler.class, numberOfCrawlers);
-            
-            addSeedToIndex(seed,MyCrawler.documentsCreated);
+            //controller.start(MyCrawler.class, numberOfCrawlers);
     }
     
     
     public void setParameters(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName){
-        MyCrawler.counter = 0;
         MyCrawler.urlDomain = seed;
         MyCrawler.directory = new File(seed);
         MyCrawler.limit=limitCrawling;
@@ -69,25 +66,28 @@ public class Controller {
 	    	File seedIndex = new File(directory,"seedIndex.txt");
 	    	FileWriter fw = new FileWriter(seedIndex);
 	    	PrintWriter pw = new PrintWriter(fw);
+	    	pw.write("0\n");
 	    	pw.write("\r\n");
 	    	pw.close();
+	    	JOptionPane.showMessageDialog(null,"CHECKPOINT");
     	}
     	catch(IOException x){
             System.err.println(x);
         }   
     }
     
-    public void addSeedToIndex(String newSeed,int documentsCreated){
-    	try
-    	{
-            String indexDirectory = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
-    	    FileWriter fw = new FileWriter(indexDirectory,true);
-    	    fw.write(newSeed+"$"+documentsCreated+"\n");
-    	    fw.close();
+    public void addSeedToIndex(String newSeed){
+    	try{
+    		BufferedReader file = new BufferedReader(new FileReader("notes.txt"));
+        	String line;String input = "";
+        	while ((line = file.readLine()) != null) input += line + '\n';
+        	file.close();
+        	JOptionPane.showMessageDialog(null,input);
+
+        	
     	}
-    	catch(IOException ioe)
-    	{
-    	    System.err.println("IOException: " + ioe.getMessage());
+    	catch(IOException x){
+    		System.err.println(x);
     	}
     }
 }

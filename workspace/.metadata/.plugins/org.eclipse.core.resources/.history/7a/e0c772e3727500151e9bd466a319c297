@@ -19,8 +19,7 @@ public class MyCrawler extends WebCrawler {
     //                + "|wav|avi|mov|mpeg|ram|m4v|pdf" + "|rm|smil|wmv|html|swf|wma|zip|rar|gz))$");
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(html))$");
 
-    public static int counter=0;
-    public static int documentsCreated=0;
+    private static int counter=0;
     public static String visited="";
     public static String urlDomain="";
     public static boolean limit= false;
@@ -55,9 +54,8 @@ public class MyCrawler extends WebCrawler {
             	  for(Element p : paragraphs){
             		  pw.write(p.text()+"\n");
                   }
-	    	pw.write("\r\n");
-	    	pw.close();
-                documentsCreated++;
+    		pw.write("\r\n");
+    		pw.close();
             }
             catch(IOException x){
                 System.err.println(x);

@@ -30,7 +30,7 @@ public class Controller {
 	}
 
     public void startCrawling(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName) throws Exception {
-            String crawlStorageFolder = "/data/";
+            /*String crawlStorageFolder = "/data/";
             int numberOfCrawlers = crawlerCount;
             BasicConfigurator.configure();
 
@@ -42,18 +42,16 @@ public class Controller {
             RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
             CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 
-            controller.addSeed(seed);
+            controller.addSeed(seed);*/
+            addSeedToIndex(seed);
             
             setParameters(seed,crawlerCount,limitCrawling,documentMax,directoryName);
             
-            controller.start(MyCrawler.class, numberOfCrawlers);
-            
-            addSeedToIndex(seed,MyCrawler.documentsCreated);
+            //controller.start(MyCrawler.class, numberOfCrawlers);
     }
     
     
     public void setParameters(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName){
-        MyCrawler.counter = 0;
         MyCrawler.urlDomain = seed;
         MyCrawler.directory = new File(seed);
         MyCrawler.limit=limitCrawling;
@@ -71,18 +69,39 @@ public class Controller {
 	    	PrintWriter pw = new PrintWriter(fw);
 	    	pw.write("\r\n");
 	    	pw.close();
+	    	JOptionPane.showMessageDialog(null,"CHECKPOINT");
     	}
     	catch(IOException x){
             System.err.println(x);
         }   
     }
     
-    public void addSeedToIndex(String newSeed,int documentsCreated){
+    public void addSeedToIndex(String newSeed){
+    	/*try{
+    		String indexDirectory = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
+    		BufferedReader file = new BufferedReader(new FileReader(indexDirectory));
+    		FileWriter fw = new FileWriter(indexDirectory);
+            PrintWriter pw = new PrintWriter(fw);
+    		String line;String input = "";
+        	int actualSeedCount = Integer.parseInt(file.readLine());
+        	pw.write(""+(actualSeedCount++));
+        	while ((line = file.readLine()) != null);
+        	pw.write(newSeed);
+        	pw.write("\r\n");
+        	pw.close();
+        	file.close();
+        	JOptionPane.showMessageDialog(null,newSeed);
+
+        	
+    	}
+    	catch(IOException x){
+    		System.err.println(x);
+    	}*/
     	try
     	{
-            String indexDirectory = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
+    		String indexDirectory = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
     	    FileWriter fw = new FileWriter(indexDirectory,true);
-    	    fw.write(newSeed+"$"+documentsCreated+"\n");
+    	    fw.write(newSeed+"\n");
     	    fw.close();
     	}
     	catch(IOException ioe)
