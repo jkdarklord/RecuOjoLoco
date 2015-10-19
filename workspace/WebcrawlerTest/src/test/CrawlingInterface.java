@@ -46,7 +46,7 @@ public class CrawlingInterface extends javax.swing.JFrame {
         textDirectory = new javax.swing.JTextField();
         labelURLdomain = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         labelDocumentLimit.setText("Limit the amount of documents?");

@@ -26,7 +26,6 @@ public class Controller {
 	
 	public Controller(){
 		currentRelativePath = Paths.get("");
-		createSeedList();
 	}
 
     public void startCrawling(String seed, int crawlerCount, boolean limitCrawling, int documentMax, String directoryName) throws Exception {
@@ -41,14 +40,15 @@ public class Controller {
             RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
             RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
             CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
-
+            
+            createSeedList();
             controller.addSeed(seed);
             
             setParameters(seed,crawlerCount,limitCrawling,documentMax,directoryName);
             
             controller.start(MyCrawler.class, numberOfCrawlers);
             
-            addSeedToIndex(seed,MyCrawler.documentsCreated);
+            addSeedToIndex(directoryName,seed,MyCrawler.documentsCreated);
     }
     
     
@@ -65,29 +65,69 @@ public class Controller {
     public void createSeedList(){
     	try{
 	    	File directory = new File(currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles");
-	    	directory.mkdir();
-	    	File seedIndex = new File(directory,"seedIndex.txt");
-	    	FileWriter fw = new FileWriter(seedIndex);
-	    	PrintWriter pw = new PrintWriter(fw);
-	    	pw.write("\r\n");
-	    	pw.close();
+                directory.mkdir();
+                File seedIndex = new File(directory,"seedIndex.txt");
+                if(!seedIndex.exists()){
+                    FileWriter fw = new FileWriter(seedIndex);
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.write("\r\n");
+                    pw.close();
+                }
     	}
     	catch(IOException x){
             System.err.println(x);
         }   
     }
     
-    public void addSeedToIndex(String newSeed,int documentsCreated){
+    public void addSeedToIndex(String directory, String newSeed,int documentsCreated){
     	try
     	{
             String indexDirectory = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
     	    FileWriter fw = new FileWriter(indexDirectory,true);
-    	    fw.write(newSeed+"$"+documentsCreated+"\n");
+    	    fw.write(directory+"@"+newSeed+"@"+documentsCreated+"\n");
     	    fw.close();
     	}
     	catch(IOException ioe)
     	{
     	    System.err.println("IOException: " + ioe.getMessage());
     	}
+    }
+    
+    public void deleteDirectory(File file) {
+        File[] contents = file.listFiles();
+        if (contents != null) {
+            for (File f : contents) {
+                deleteDirectory(f);
+            }
+        }
+        file.delete();
+    }
+    
+    public void deleteDirectoryFromIndex(String directoryName){
+        String line = null;
+        String newText ="";
+        try{
+            Path currentRelativePath = Paths.get("");
+            String filename = currentRelativePath.toAbsolutePath().toString()+"\\CrawlerFiles\\seedIndex.txt";
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null){
+                String [] tokens = line.split("@");
+                if(!tokens[0].equals(directoryName)){
+                    newText+=line+"\n";
+                }
+            }
+            bufferedReader.close();
+            
+            FileWriter fw = new FileWriter(filename);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.write("\n");
+            pw.write(newText);
+            pw.write("\r\n");
+            pw.close();
+        }
+        catch(IOException x){
+            System.err.println(x);
+        }
     }
 }

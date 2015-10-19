@@ -47,7 +47,8 @@ public class Interface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelMainTitle.setText("Best search engine ever.");
+        labelMainTitle.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        labelMainTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
 
         menuCrawler.setText("Crawler");
 
@@ -121,28 +122,28 @@ public class Interface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(labelMainTitle)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(57, 57, 57)
                 .addComponent(labelMainTitle)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionSeeCrawledSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionSeeCrawledSitesActionPerformed
-        // TODO add your handling code here:
+        new CrawledSitesInterface().setVisible(true);
     }//GEN-LAST:event_actionSeeCrawledSitesActionPerformed
 
     private void actionNewSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionNewSearchActionPerformed
-        // TODO add your handling code here:
+        new SearchInterface().setVisible(true);
     }//GEN-LAST:event_actionNewSearchActionPerformed
 
     private void actionNewCrawlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionNewCrawlingActionPerformed
@@ -150,7 +151,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_actionNewCrawlingActionPerformed
 
     private void actionDeleteCrawledFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionDeleteCrawledFilesActionPerformed
-        // TODO add your handling code here:
+        new DeleteCrawledFilesInterface().setVisible(true);
     }//GEN-LAST:event_actionDeleteCrawledFilesActionPerformed
 
     private void actionAdvancedSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionAdvancedSearchActionPerformed
