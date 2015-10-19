@@ -1,0 +1,35 @@
+package test;
+
+import java.util.HashMap;
+
+public class Indexer
+{
+	private HashMap<String, Integer> docList;
+	private PostingsList pList;
+	private Dictionary wDict;
+	
+	public Indexer()
+	{
+		docList = new HashMap<String, Integer>();
+		pList = new PostingsList();
+		wDict = new Dictionary();
+	}
+	
+	private void addOcurrence(String word, int docID)
+	{
+		int id = wDict.addOcurrence(word);
+		pList.append(docID, id, 0);
+	}
+	
+	public void parseDocument(String path)
+	{
+		int matriz[][][] = new int[3][3][3];
+		for(int i = 0; i < matriz.length; ++i)
+		{
+			for(int j = 0; j < matriz[i].length; ++j)
+			{
+				for(int k = 0; k < matriz[i][j].length; ++k)
+			}
+		}
+	}
+}

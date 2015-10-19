@@ -1,0 +1,27 @@
+package test;
+
+import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;;
+
+public class IndexerControler
+{
+
+	public static void run()
+	{
+		Indexer idxr = new Indexer();
+		
+		try
+		{
+			idxr.parseDocument("a.txt");
+			JOptionPane.showMessageDialog(null, "Yer good");
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Yer fuk up");
+			return;
+		}
+		
+		
+	}
+
+}

@@ -194,6 +194,8 @@ public class Interface extends javax.swing.JFrame {
                 new Interface().setVisible(true);
             }
         });
+        
+        IndexerControler.run();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

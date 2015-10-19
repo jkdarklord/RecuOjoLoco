@@ -1,0 +1,62 @@
+package test;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+import test.PostingsList.PostingsListElement;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Indexer
+{
+	private HashMap<String, Integer> docList;
+	private PostingsList pList;
+	private Dictionary wDict;
+	private int nextID;
+	
+	public Indexer()
+	{
+		docList = new HashMap<String, Integer>();
+		pList = new PostingsList();
+		wDict = new Dictionary();
+		nextID = 0;
+	}
+	
+	public void parseDocument(String path) throws FileNotFoundException
+	{
+		if(!docList.containsKey(path))
+		{
+			File f = new File(path);
+			Scanner sc = new Scanner(f);
+			sc.useDelimiter("[^\\w\'-]");
+			
+			int actualID = nextID;
+			docList.put(path, actualID);
+			nextID++;
+			
+			String word;
+			HashMap<String, PostingsListElement> localDict = new HashMap<String, PostingsListElement>();
+			
+			while(sc.hasNext())
+			{
+				word = sc.next();
+				int id = wDict.addOcurrence(word);
+				
+				if(!localDict.containsKey(word))
+				{
+					pList.append(actualID, id, 1);
+					localDict.put(word, p);
+				}
+				else
+				{
+					localDict.get(word).df += 1;
+				}
+				
+			}
+			
+			
+			sc.close();
+		}
+	}
+}

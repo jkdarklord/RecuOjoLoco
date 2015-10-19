@@ -1,0 +1,37 @@
+package test;
+
+import java.util.Vector;
+
+public class PostingsList
+{
+	public class PostingsListElement
+	{
+		public int docID;
+		public int termID;
+		public int df;
+	}
+	
+	private Vector<PostingsListElement> postings;
+	
+	public PostingsList()
+	{
+		postings = new Vector<PostingsListElement>();
+	}
+	
+	public Iterator<Integer> getIterator()
+	{
+		if( postings.isEmpty() )
+			return null;
+		else
+			return postings.iterator();
+	}
+	
+	public void append(int docID, int termID, int df)
+	{
+		PostingsListElement p = new PostingsListElement();
+		p.docID = docID;
+		p.termID = termID;
+		p.df = df;
+		postings.add(p);
+	}
+}

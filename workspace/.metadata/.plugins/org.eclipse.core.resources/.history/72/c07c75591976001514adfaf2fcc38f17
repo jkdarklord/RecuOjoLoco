@@ -1,0 +1,14 @@
+package test;
+
+import java.util.HashMap;
+
+public class Indexer
+{
+	private class Document
+	{
+		String path;
+		int id;
+	}
+	
+	private HashMap<Document> docList;
+}

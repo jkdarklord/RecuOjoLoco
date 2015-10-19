@@ -1,6 +1,7 @@
 package test;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Dictionary
 {
@@ -9,32 +10,54 @@ public class Dictionary
 	private class DictionaryElement
 	{
 		public int count;
-		public PostingsList postings;
+		public int id;
+		public int postings;
 		
-		public DictionaryElement()
+		public DictionaryElement(int id)
 		{
-			count = 0;
-			postings = new PostingsList();
+			this.id = id;
+			this.count = 0;
+			this.postings = 0;
+		}
+		
+		public String toString()
+		{
+			return "ID: " + id + ", COUNT:" + count + ", POST:" + postings;
 		}
 	}
+	
+	public int nextID;
 	
 	public Dictionary()
 	{
+		nextID = 1;
 		map = new HashMap<String, DictionaryElement>();
 	}
 	
-	public void addTerm(String term)
+	private int addTerm(String term)
 	{
+		int id;
+		
 		if(!map.containsKey(term))
 		{
-			map.put(term, new DictionaryElement());
+			id = nextID;
+			map.put(term, new DictionaryElement(id));
+			nextID++;
 		}
+		else
+			id = map.get(term).id;
+		return id;
 	}
 	
-	public void addOcurrence(String term, int docId)
+	public int addOcurrence(String term)
 	{
-		addTerm(term);
+		int id = addTerm(term);
 		++map.get(term).count;
-		map.get(term).postings.add(docId);
+		return id;
+	}
+	
+	public String toString()
+	{
+		return map.toString();
 	}
 }

@@ -1,0 +1,25 @@
+package test;
+
+import java.util.Vector;
+
+public class PostingsList
+{
+	public class PostingsListElement
+	{
+		public int docID;
+		public int termID;
+		public int df;
+	}
+	
+	public Vector<PostingsListElement> postings;
+	
+	public PostingsList()
+	{
+		postings = new Vector<PostingsListElement>();
+	}
+	
+	public void append(PostingsListElement p)
+	{
+		postings.add(p);
+	}
+}
