@@ -1,0 +1,59 @@
+package test;
+
+import java.util.HashMap;
+
+public class Dictionary
+{
+	private HashMap<String, DictionaryElement> map;
+	
+	private class DictionaryElement
+	{
+		public int count;
+		public int id;
+		public int postings;
+		
+		public DictionaryElement(int id)
+		{
+			this.id = id;
+			this.count = 0;
+			this.postings = 0;
+		}
+	}
+	
+	public int nextID;
+	
+	public Dictionary()
+	{
+		nextID = 1;
+		map = new HashMap<String, DictionaryElement>();
+	}
+	
+	private int addTerm(String term)
+	{
+		int id;
+		
+		if(!map.containsKey(term))
+		{
+			id = nextID;
+			map.put(term, new DictionaryElement(id));
+			nextID++;
+		}
+		else
+			id = map.get(term).id;
+		return id;
+	}
+	
+	public int addOcurrence(String term)
+	{
+		int id = addTerm(term);
+		++map.get(term).count;
+		return id;
+	}
+	
+	public String toString()
+	{
+		String acc = "";
+		Set<HashMap.Entry<String, DictionaryElement> x = map.entrySet();
+		return acc;
+	}
+}

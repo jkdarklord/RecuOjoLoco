@@ -1,0 +1,29 @@
+package test;
+
+import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;;
+
+public class IndexerControler
+{
+
+	public static void run()
+	{
+		Indexer idxr = new Indexer();
+		
+		try
+		{
+			idxr.parseDocument("a.txt");
+			idxr.parseDocument("b.txt");
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Yer fuk up");
+			return;
+		}
+		
+		JOptionPane.showMessageDialog(null, idxr.wDict.toString());
+		JOptionPane.showMessageDialog(null, idxr.docList.toString());
+		JOptionPane.showMessageDialog(null, idxr.pList.toString());
+	}
+
+}

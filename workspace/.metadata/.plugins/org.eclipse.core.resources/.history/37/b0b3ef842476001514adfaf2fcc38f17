@@ -1,0 +1,11 @@
+package test;
+
+public class IndexerControler {
+
+	public static void main(String[] args)
+	{
+		Indexer idxr = new Indexer();
+
+	}
+
+}

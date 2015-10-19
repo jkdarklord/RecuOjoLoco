@@ -1,0 +1,17 @@
+package test;
+
+import java.util.HashMap;
+
+public class Indexer
+{
+	private HashMap<String, Integer> docList;
+	private PostingsList pList;
+	private Dictionary wDict;
+	
+	public Indexer()
+	{
+		docList = new HashMap<String, Integer>();
+		
+	}
+	
+}
