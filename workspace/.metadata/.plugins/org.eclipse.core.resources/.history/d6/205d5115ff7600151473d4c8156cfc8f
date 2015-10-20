@@ -1,4 +1,5 @@
 package test;
+import size;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,9 +39,9 @@ public class PostingsList implements Serializable
 		
 		// We will estimate 1 third of memory for a postings list block
 		// So we may be able to hold two at the same time
-		//long elementLength = ObjectSizeFetcher.getObjectSize(new PostingsListElement());
+		long elementLength = ObjectSizeFetcher.getObjectSize(new PostingsListElement());
 		long mem = Runtime.getRuntime().maxMemory();
-		//maxListSize = (mem / 3) / elementLength;
+		maxListSize = (mem / 3) / elementLength;
 	}
 	
 	public PostingsListElement append(int docID, int termID, int df)

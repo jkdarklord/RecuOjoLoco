@@ -32,4 +32,5 @@
 <fullyQualifiedTypeName name="java.util.Vector"/>
 <fullyQualifiedTypeName name="test.PostingsList.PostingsListElement"/>
 <fullyQualifiedTypeName name="java.io.FilenameFilter"/>
+<fullyQualifiedTypeName name="test.ObjectSizeFetcher"/>
 </qualifiedTypeNameHistroy>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="C:\Documents and Settings\zayda\Desktop\RecuOjoLoco\External JARs" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\Artist\Desktop\RecuOjoLoco\External JARs" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="FatJarPackageWizard">
 		<item value="C:\Users\B25201\Desktop\workspace.xml" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
 		<item value="DeploymentSettings - WebcrawlerTest" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
@@ -39,7 +39,7 @@
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item value="3" key="pageIndex"/>
+		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>
