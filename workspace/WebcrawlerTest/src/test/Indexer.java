@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Indexer implements Serializable
 {
@@ -145,4 +146,85 @@ public class Indexer implements Serializable
 			res = docList.get(path);
 		return res;
 	}
+        
+    public static PostingsListElement[] sort(PostingsListElement[] inputArr) {
+        return quickSort(0, inputArr.length - 1, inputArr);
+    }
+ 
+    private static PostingsListElement[] quickSort(int lowerIndex, int higherIndex, PostingsListElement[] array) {
+         
+        int i = lowerIndex;
+        int j = higherIndex;
+        PostingsListElement pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
+        while (i <= j) {
+            while (array[i].docID < pivot.docID) {
+                i++;
+            }
+            while (array[j].docID > pivot.docID) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeElements(i, j, array);
+                i++;
+                j--;
+            }
+        }
+        if (lowerIndex < j)
+            quickSort(lowerIndex, j,array);
+        if (i < higherIndex)
+            quickSort(i, higherIndex,array);
+        return array;
+    }
+ 
+    private static void exchangeElements(int i, int j, PostingsListElement[] array) {
+        PostingsListElement temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    
+    public static PostingsListElement[] intersectArrays(PostingsListElement[] a, PostingsListElement[] b){
+        a=Indexer.sort(a);
+        b=Indexer.sort(b);
+        PostingsListElement[] c = new PostingsListElement[Math.min(a.length, b.length)]; 
+        int ai = 0, bi = 0, ci = 0;
+        while (ai < a.length && bi < b.length) {
+            if (a[ai].docID < b[bi].docID) {
+                ai++;
+            } else if (a[ai].docID > b[bi].docID) {
+                bi++;
+            } else {
+                if (ci == 0 || a[ai].docID != c[ci - 1].docID) {
+                    c[ci++] = a[ai];
+                }
+                ai++; bi++;
+            }
+        }
+        return trimArray(c,ci); 
+    }
+    
+    public static PostingsListElement[] trimArray(PostingsListElement[] array, int newLength){
+        PostingsListElement[] arr = new PostingsListElement[newLength];
+        for(int i=0;i<newLength;i++){
+            arr[i] = array[i];
+        }
+        return arr;
+    }
+    
+    public static PostingsListElement[] findMatches (ArrayList<PostingsListElement[]> list){
+        if(list.size()==0){
+            return null;
+        }
+        else{
+            if(list.size()==1){
+                return list.get(0);
+            }
+            else{
+                PostingsListElement[] intersection = list.get(0);
+                for(int i=1;i<list.size();i++){
+                    intersection = intersectArrays(intersection,list.get(i));
+                }
+                return intersection;
+            }
+        }
+    }
 }

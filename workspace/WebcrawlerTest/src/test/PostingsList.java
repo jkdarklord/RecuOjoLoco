@@ -15,12 +15,18 @@ public class PostingsList implements Serializable
 	private int nextList;
 	private long maxListSize;
 	
-	public class PostingsListElement implements Serializable
+	public static class PostingsListElement implements Serializable
 	{
 		public int docID;
 		public int termID;
 		public int df;
 		
+                public PostingsListElement (int newDocID, int newTermID, int newDF){
+                    docID=newDocID;
+                    termID = newTermID;
+                    df = newDF;
+                }
+                
 		public String toString()
 		{
 			return docID + " " + termID + " " + df;
@@ -51,10 +57,10 @@ public class PostingsList implements Serializable
 		}
 		checkSize();
 		
-		PostingsListElement p = new PostingsListElement();
-		p.docID = docID;
+		PostingsListElement p = new PostingsListElement(docID,termID,df);
+		/*p.docID = docID;
 		p.termID = termID;
-		p.df = df;
+		p.df = df;*/
 		postings.add(p);
 		
 		checkSize();
