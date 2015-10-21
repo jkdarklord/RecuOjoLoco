@@ -36,6 +36,7 @@ public class Interface extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         labelMainTitle = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCrawler = new javax.swing.JMenu();
         actionNewCrawling = new javax.swing.JMenuItem();
@@ -58,6 +59,13 @@ public class Interface extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Index");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -140,6 +148,8 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(labelMainTitle)
                         .addGap(106, 106, 106))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
                         .addGap(88, 88, 88))))
         );
@@ -149,7 +159,9 @@ public class Interface extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addComponent(labelMainTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -217,6 +229,10 @@ public class Interface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        IndexerControler.run();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,8 +266,6 @@ public class Interface extends javax.swing.JFrame {
                 new Interface().setVisible(true);
             }
         });
-        
-        IndexerControler.run();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,6 +277,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenu actionSearch;
     private javax.swing.JMenuItem actionSeeCrawledSites;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelMainTitle;

@@ -129,14 +129,13 @@ public class Indexer implements Serializable
 						localDict.get(word).df += 1;
 					}
 				}
-				
-				
-				System.out.println(word);
+				//System.out.println(word);
 			}
 			sc.close();
+                        System.out.println(path);
 		}
-		else
-			System.out.println(path);
+		//else
+			//System.out.println(path);
 	}
 	
 	public int fileID(String path)

@@ -8,6 +8,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Paths;
 import java.util.Vector;
 
 public class PostingsList implements Serializable
@@ -60,9 +61,6 @@ public class PostingsList implements Serializable
 		checkSize();
 		
 		PostingsListElement p = new PostingsListElement(docID,termID,df);
-		/*p.docID = docID;
-		p.termID = termID;
-		p.df = df;*/
 		postings.add(p);
 		
 		checkSize();
@@ -100,7 +98,7 @@ public class PostingsList implements Serializable
 	{
 		try
 		{  
-			FileOutputStream file = new FileOutputStream(actualList + ".ser");
+			FileOutputStream file = new FileOutputStream(Paths.get("").toAbsolutePath().toString() + "\\" + actualList + ".ser");
 			ObjectOutputStream output = new ObjectOutputStream(file);   
 			output.writeObject(postings);
 			output.close();
@@ -121,7 +119,7 @@ public class PostingsList implements Serializable
             {
                     try
                     {
-                            FileInputStream file = new FileInputStream(list + ".ser");
+                            FileInputStream file = new FileInputStream(Paths.get("").toAbsolutePath().toString() + "\\" + list + ".ser");
                             ObjectInputStream input = new ObjectInputStream(file);
                             postings = (Vector<PostingsListElement>) input.readObject();
                             input.close();
