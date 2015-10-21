@@ -62,6 +62,7 @@ public class IndexerControler
 		idxr.pList.load();
 		JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
 		saveIndexer(idxr);
+                idxr.pList.save();
 	}
 	
 	private static Indexer loadIndexer()

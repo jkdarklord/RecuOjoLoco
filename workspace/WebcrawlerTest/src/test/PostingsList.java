@@ -39,8 +39,10 @@ public class PostingsList implements Serializable
 		// We will estimate 1 third of memory for a postings list block
 		// So we may be able to hold two at the same time
 		//long elementLength = ObjectSizeFetcher.getObjectSize(new PostingsListElement());
-		long mem = Runtime.getRuntime().maxMemory();
-		//maxListSize = (mem / 3) / elementLength;
+		long elementLength = 20;
+                long mem = Runtime.getRuntime().maxMemory();
+		maxListSize = (mem / 3) / elementLength;
+                System.out.println(maxListSize + "");
 	}
 	
 	public PostingsListElement append(int docID, int termID, int df)
@@ -64,22 +66,23 @@ public class PostingsList implements Serializable
 	
 	public void checkSize()
 	{
-		if(postings.size() >= maxListSize)
-		{
-			save();
-			
-			if(actualList + 1 >= nextList)
-			{
-				actualList = nextList;
-				nextList++;
-				postings = new Vector<PostingsListElement>();
-			}
-			else
-			{
-				actualList = -1;
-				postings = null;
-			}
-		}
+            //System.out.println("Actual: " + postings.size() + ", Max: " + maxListSize);
+            if(postings.size() >= maxListSize)
+            {
+                    save();
+
+                    if(actualList + 1 >= nextList)
+                    {
+                            actualList = nextList;
+                            nextList++;
+                            postings = new Vector<PostingsListElement>();
+                    }
+                    else
+                    {
+                            actualList = -1;
+                            postings = null;
+                    }
+            }
 	}
 	
 	public String toString()
@@ -107,19 +110,59 @@ public class PostingsList implements Serializable
 	
 	public void load(int list)
 	{
-		if( list < nextList )
-		{
-			try
-			{
-				FileInputStream file = new FileInputStream(list + ".ser");
-				ObjectInputStream input = new ObjectInputStream(file);
-				postings = (Vector<PostingsListElement>) input.readObject();
-				input.close();
-				actualList = list;
-			}catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
+            save();
+            if( list < nextList )
+            {
+                    try
+                    {
+                            FileInputStream file = new FileInputStream(list + ".ser");
+                            ObjectInputStream input = new ObjectInputStream(file);
+                            postings = (Vector<PostingsListElement>) input.readObject();
+                            input.close();
+                            actualList = list;
+                    }catch (IOException | ClassNotFoundException e)
+                    {
+                            e.printStackTrace();
+                            actualList = -1;
+                            postings = null;
+                    }
+            }
 	}
+        
+        public PostingsListElement elementAt(long index)
+        {
+            int block = (int)(index / maxListSize);
+            int offset = (int)(index % maxListSize);
+            
+            if(actualList != block)
+            {
+                load(block);
+            }
+            
+            if(actualList == -1)
+            {
+                return null;
+            }
+            return postings.get(offset);
+        }
+        
+        public Vector<PostingsListElement> listFrom(long index)
+        {
+            Vector<PostingsListElement> result = new Vector<PostingsListElement>();
+            PostingsListElement first = elementAt(index);
+            
+            if(first != null)
+            {
+                int i = 1;
+                PostingsListElement next = elementAt(index + 1);
+                while((next != null) && (first.termID == next.termID))
+                {
+                    result.add(next);
+                    ++i;
+                    next = elementAt(index + i);
+                }
+            }
+            
+            return result;
+        }
 }
