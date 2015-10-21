@@ -51,12 +51,13 @@ public class MyCrawler extends WebCrawler {
             	Document doc = Jsoup.parse(line);
             	Elements paragraphs = doc.select("p");
                 String [] urlTokens = url.split("/");
-                String title = urlTokens[urlTokens.length-1] + ".txt";
+                String title = url + ".txt";
                 title = title.replaceAll("[\\/\\\\:\\*\\?\\\"<>\\|]","-");
                 File file = new File(directory, title);
                 //File file = new File(directory, documentsCreated + ".txt");
                 FileWriter fw = new FileWriter(file);
             	PrintWriter pw = new PrintWriter(fw);
+                pw.write(title + "\n");
             	  for(Element p : paragraphs){
             		  pw.write(p.text()+"\n");
                   }

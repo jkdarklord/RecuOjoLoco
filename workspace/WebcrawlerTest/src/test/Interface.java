@@ -193,7 +193,7 @@ public class Interface extends javax.swing.JFrame {
         
         
         b[0] = new PostingsList.PostingsListElement(1,48,15);
-        b[1] = new PostingsList.PostingsListElement(89,48,15);
+        b[1] = new PostingsList.PostingsListElement(8,48,15);
         b[2] = new PostingsList.PostingsListElement(147,48,15);
         b[3] = new PostingsList.PostingsListElement(5,48,15);
         b[4] = new PostingsList.PostingsListElement(13,48,15);
@@ -214,6 +214,10 @@ public class Interface extends javax.swing.JFrame {
         lista.add(c);
         
         PostingsList.PostingsListElement[] results = Indexer.findMatches(lista);
+        
+        for(int i=0;i<results.length;i++){
+            System.out.println(results[i].docID);
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
