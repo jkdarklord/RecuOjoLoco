@@ -230,12 +230,24 @@ public class Indexer implements Serializable
     
     public void BSBIMerge()
     {
-        // Ordenar cada archivo
-        int totalDocs = pList.nextList;
-        while(totalDocs > 1)
+    	int totalBlocks = pList.nextList;
+    	/*
+        for(int i = 0; i < totalBlocks; ++i)
+        {
+        	pList.load(i);
+        	PostingsListElement[] temp = sort( (PostingsListElement[])pList.postings.toArray() );
+        	pList.postings = new Vector<PostingsListElement>();
+        	for(int j = 0; j < temp.length; j++)
+            {
+        		pList.postings.add(temp[j]);
+            }
+        }
+        pList.save();*/
+        
+        while(totalBlocks > 1)
         {
             pList.maxListSize *= 2;
-            for(int i = 0; i < totalDocs; i += 2)
+            for(int i = 0; i < totalBlocks; i += 2)
             {
                 pList.load(i);
                 PostingsListElement[] l1 = (PostingsListElement[]) pList.postings.toArray();
@@ -247,7 +259,13 @@ public class Indexer implements Serializable
                 {
                     l1 = intersectArrays(l1, l2); // Sort
                 }
-                // Meter a PostingsList Vector
+                
+                // Meter a PostingsList Vector y guardar
+                pList.postings = new Vector<PostingsListElement>();
+            	for(int j = 0; j < l1.length; j++)
+                {
+            		pList.postings.add(l1[j]);
+                }
                 pList.save();
             }
         }

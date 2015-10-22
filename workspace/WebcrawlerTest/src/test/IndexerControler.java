@@ -41,7 +41,7 @@ public class IndexerControler
                             }
                     }
             };
-            Vector<File> fileList = new Vector();
+            Vector<File> fileList = new Vector<File>();
             File temp[] = workingFolder.listFiles(textFilter);
             for(int i = 0; i < temp.length; i++)
             {
@@ -82,6 +82,7 @@ public class IndexerControler
             JOptionPane.showMessageDialog(null, "It is time");
             idxr.pList.load();
             JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
+            idxr.BSBIMerge();
             saveIndexer(idxr);
             idxr.pList.save();
 	}

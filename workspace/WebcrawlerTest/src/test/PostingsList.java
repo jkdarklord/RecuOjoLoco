@@ -22,11 +22,12 @@ public class PostingsList implements Serializable
 		public int termID;
 		public int df;
 		
-                public PostingsListElement (int newDocID, int newTermID, int newDF){
-                    docID=newDocID;
-                    termID = newTermID;
-                    df = newDF;
-                }
+        public PostingsListElement (int newDocID, int newTermID, int newDF)
+        {
+            docID = newDocID;
+            termID = newTermID;
+            df = newDF;
+        }
                 
 		public String toString()
 		{
