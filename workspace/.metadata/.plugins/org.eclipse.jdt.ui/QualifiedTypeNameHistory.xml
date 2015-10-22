@@ -33,4 +33,7 @@
 <fullyQualifiedTypeName name="test.PostingsList.PostingsListElement"/>
 <fullyQualifiedTypeName name="java.io.FilenameFilter"/>
 <fullyQualifiedTypeName name="test.ObjectSizeFetcher"/>
+<fullyQualifiedTypeName name="test.Dictionary.DictionaryElement"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

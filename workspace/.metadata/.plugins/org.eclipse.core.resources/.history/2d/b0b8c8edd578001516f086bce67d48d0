@@ -1,11 +1,9 @@
 package test;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
 
-import test.Dictionary.DictionaryElement;
 import test.PostingsList.PostingsListElement;
 
 import java.io.File;
@@ -18,7 +16,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import static java.lang.System.gc;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Indexer implements Serializable
 {
@@ -275,7 +272,6 @@ public class Indexer implements Serializable
         pList.nextList = 1;
         
         // Rellenar el indice con postings
-        updateIndex();
     }
     
     public void updateIndex()
@@ -291,12 +287,6 @@ public class Indexer implements Serializable
     		previous = pList.postings.get(i).termID;
     	}
     	
-    	Collection<DictionaryElement> x = wDict.map.values();
-    	Iterator itr = x.iterator();
-    	while(itr.hasNext())
-    	{
-    		DictionaryElement actual = (DictionaryElement) itr.next();
-    		actual.postings = temp.get(actual.id);
-    	}
+    	wDict.map.values();
     }
 }

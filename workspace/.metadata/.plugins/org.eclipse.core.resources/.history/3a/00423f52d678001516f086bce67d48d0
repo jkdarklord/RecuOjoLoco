@@ -275,7 +275,6 @@ public class Indexer implements Serializable
         pList.nextList = 1;
         
         // Rellenar el indice con postings
-        updateIndex();
     }
     
     public void updateIndex()

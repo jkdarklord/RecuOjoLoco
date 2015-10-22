@@ -275,7 +275,6 @@ public class Indexer implements Serializable
         pList.nextList = 1;
         
         // Rellenar el indice con postings
-        updateIndex();
     }
     
     public void updateIndex()
@@ -295,7 +294,7 @@ public class Indexer implements Serializable
     	Iterator itr = x.iterator();
     	while(itr.hasNext())
     	{
-    		DictionaryElement actual = (DictionaryElement) itr.next();
+    		DictionaryElement actual = itr.next();
     		actual.postings = temp.get(actual.id);
     	}
     }

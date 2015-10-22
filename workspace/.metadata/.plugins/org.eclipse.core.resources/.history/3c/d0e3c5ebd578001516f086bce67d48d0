@@ -8,7 +8,7 @@ public class Dictionary implements Serializable
 {
 	public HashMap<String, DictionaryElement> map;
 	
-	public class DictionaryElement implements Serializable
+	private class DictionaryElement implements Serializable
 	{
 		public int count;
 		public int id;

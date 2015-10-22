@@ -83,7 +83,6 @@ public class IndexerControler
             idxr.pList.load();
             JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
             idxr.BSBIMerge();
-            JOptionPane.showMessageDialog(null, idxr.wDict.toString());
             saveIndexer(idxr);
             idxr.pList.save();
 	}
