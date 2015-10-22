@@ -13,8 +13,8 @@ import java.util.Vector;
 
 public class PostingsList implements Serializable
 {
-	private int nextList;
-	private long maxListSize;
+	public int nextList;
+	public long maxListSize;
 	
 	public static class PostingsListElement implements Serializable
 	{

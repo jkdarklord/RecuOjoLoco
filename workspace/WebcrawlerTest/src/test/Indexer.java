@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import static java.lang.System.gc;
 import java.util.ArrayList;
 
 public class Indexer implements Serializable
@@ -225,5 +226,33 @@ public class Indexer implements Serializable
                 return intersection;
             }
         }
+    }
+    
+    public void BSBIMerge()
+    {
+        // Ordenar cada archivo
+        int totalDocs = pList.nextList;
+        while(totalDocs > 1)
+        {
+            pList.maxListSize *= 2;
+            for(int i = 0; i < totalDocs; i += 2)
+            {
+                pList.load(i);
+                PostingsListElement[] l1 = (PostingsListElement[]) pList.postings.toArray();
+                pList.load(i + 1);
+                PostingsListElement[] l2 = (PostingsListElement[]) pList.postings.toArray();
+                pList.postings = null;
+                pList.actualList = i / 2;
+                if(l2 != null)
+                {
+                    l1 = intersectArrays(l1, l2); // Sort
+                }
+                // Meter a PostingsList Vector
+                pList.save();
+            }
+        }
+        pList.nextList = 1;
+        
+        // Rellenar el indice con postings
     }
 }
