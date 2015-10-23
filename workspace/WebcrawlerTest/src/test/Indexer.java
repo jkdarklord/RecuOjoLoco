@@ -3,7 +3,8 @@ package test;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import test.Dictionary.DictionaryElement;
 import test.PostingsList.PostingsListElement;
@@ -23,6 +24,7 @@ import java.util.Collection;
 public class Indexer implements Serializable
 {
 	public HashMap<String, Integer> docList;
+	public HashMap<Integer, String> invertedDocList;
 	public PostingsList pList;
 	public Dictionary wDict;
 	private int nextID;
@@ -30,6 +32,7 @@ public class Indexer implements Serializable
 	public Indexer()
 	{
 		docList = new HashMap<String, Integer>();
+		invertedDocList = new HashMap<Integer, String>();
 		pList = new PostingsList();
 		wDict = new Dictionary();
 		nextID = 0;
@@ -111,6 +114,7 @@ public class Indexer implements Serializable
 			
 			int actualID = nextID;
 			docList.put(path, actualID);
+			invertedDocList.put(actualID, path);
 			nextID++;
 			
 			String word;
@@ -147,6 +151,14 @@ public class Indexer implements Serializable
 		int res = 0;
 		if(docList.containsKey(path))
 			res = docList.get(path);
+		return res;
+	}
+	
+	public String pathFromDocID(int docID)
+	{
+		String res = null;
+		if(invertedDocList.containsKey(docID))
+			res = invertedDocList.get(docID);
 		return res;
 	}
         
@@ -239,7 +251,7 @@ public class Indexer implements Serializable
         {
         	pList.load(i);
         	PostingsListElement[] temp = sort( (PostingsListElement[])pList.postings.toArray() );
-        	pList.postings = new Vector<PostingsListElement>();
+        	pList.postings = new ArrayList<PostingsListElement>();
         	for(int j = 0; j < temp.length; j++)
             {
         		pList.postings.add(temp[j]);
@@ -247,32 +259,52 @@ public class Indexer implements Serializable
         }
         pList.save();*/
         
-        while(totalBlocks > 1)
-        {
-            pList.maxListSize *= 2;
-            for(int i = 0; i < totalBlocks; i += 2)
+    	if(totalBlocks > 1)
+    	{
+    		while(totalBlocks > 1)
             {
-                pList.load(i);
-                PostingsListElement[] l1 = (PostingsListElement[]) pList.postings.toArray();
-                pList.load(i + 1);
-                PostingsListElement[] l2 = (PostingsListElement[]) pList.postings.toArray();
-                pList.postings = null;
-                pList.actualList = i / 2;
-                if(l2 != null)
+                pList.maxListSize *= 2;
+                for(int i = 0; i < totalBlocks; i += 2)
                 {
-                    l1 = intersectArrays(l1, l2); // Sort
+                    pList.load(i);
+                    PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
+                    pList.postings.toArray(l1);
+                    pList.load(i + 1);
+                    PostingsListElement[] l2 = new PostingsListElement[pList.postings.size()];
+                    pList.postings.toArray(l2);
+                    l1 = Arrays.copyOf(l1, l1.length + l2.length);
+                    System.arraycopy(l2, 0, l1, l1.length, l2.length);
+                    pList.postings = null;
+                    pList.actualList = i / 2;
+                    if(l2 != null)
+                    {
+                    	
+                    	Arrays.sort(l1);
+                    }
+                    
+                    // Meter a PostingsList ArrayList y guardar
+                    pList.postings = new ArrayList<PostingsListElement>();
+                	for(int j = 0; j < l1.length; j++)
+                    {
+                		pList.postings.add(l1[j]);
+                    }
+                    pList.save();
                 }
-                
-                // Meter a PostingsList Vector y guardar
-                pList.postings = new Vector<PostingsListElement>();
-            	for(int j = 0; j < l1.length; j++)
-                {
-            		pList.postings.add(l1[j]);
-                }
-                pList.save();
             }
-        }
-        pList.nextList = 1;
+            pList.nextList = 1;
+    	}
+    	else
+    	{
+    		pList.load(0);
+    		PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
+    		pList.postings.toArray(l1);
+    		Arrays.sort(l1);
+    		pList.postings = new ArrayList<PostingsListElement>();
+        	for(int j = 0; j < l1.length; j++)
+            {
+        		pList.postings.add(l1[j]);
+            }
+    	}
         
         // Rellenar el indice con postings
         updateIndex();
@@ -281,6 +313,7 @@ public class Indexer implements Serializable
     public void updateIndex()
     {
     	HashMap<Integer, Integer> temp = new HashMap<Integer, Integer>();
+    	
     	int previous = -1;
     	for(int i = 0; i < pList.postings.size(); ++i)
     	{
@@ -298,5 +331,14 @@ public class Indexer implements Serializable
     		DictionaryElement actual = (DictionaryElement) itr.next();
     		actual.postings = temp.get(actual.id);
     	}
+    }
+    
+    public PostingsListElement[] getPostings(String term)
+    {
+    	if(!wDict.map.containsKey(term))
+    		return null;
+    	int termID = wDict.map.get(term).postings;
+    	PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
+    	return pList.listFrom(termID);
     }
 }

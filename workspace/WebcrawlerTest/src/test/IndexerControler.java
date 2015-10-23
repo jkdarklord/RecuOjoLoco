@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -21,9 +21,15 @@ public class IndexerControler
 	private static String indexerPath = Paths.get("").toAbsolutePath().toString() + "\\idx.ser";
 	private static String workDirectory = Paths.get("").toAbsolutePath().toString() + "\\CrawlerFiles\\";
 	
+	private static Indexer idxr;
+	
+	public static void initialize()
+	{
+		idxr = loadIndexer();
+	}
+	
 	public static void run()
 	{
-            Indexer idxr = loadIndexer();
             File workingFolder = new File(workDirectory);
             //System.out.println(Paths.get("").toAbsolutePath().toString() + "\\CrawlerFiles\\");
             
@@ -41,7 +47,7 @@ public class IndexerControler
                             }
                     }
             };
-            Vector<File> fileList = new Vector<File>();
+            ArrayList<File> fileList = new ArrayList<File>();
             File temp[] = workingFolder.listFiles(textFilter);
             for(int i = 0; i < temp.length; i++)
             {
@@ -71,7 +77,6 @@ public class IndexerControler
             } catch (FileNotFoundException e)
             {
                     e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Yer fuk up");
                     return;
             }
 
@@ -83,7 +88,7 @@ public class IndexerControler
             idxr.pList.load();
             JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
             idxr.BSBIMerge();
-            JOptionPane.showMessageDialog(null, idxr.wDict.toString());
+            //JOptionPane.showMessageDialog(null, idxr.pList.toString());
             saveIndexer(idxr);
             idxr.pList.save();
 	}
@@ -102,7 +107,8 @@ public class IndexerControler
 				ObjectInputStream input = new ObjectInputStream(file);
 				idxr = (Indexer) input.readObject();
 				input.close();
-				idxr.pList.postings = new Vector<PostingsListElement>();
+				idxr.pList.postings = new ArrayList<PostingsListElement>();
+				idxr.pList.actualList = -1;
 			}catch (IOException | ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -129,5 +135,6 @@ public class IndexerControler
 			ex.printStackTrace();
 		}
 	}
+
 	
 }
