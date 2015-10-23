@@ -1,4 +1,4 @@
-http---metroid.wikia.com-wiki-Help-Images.txt
+http://metroid.wikia.com/wiki/Help:Images
 Any logged in user can upload images to the wiki. If you need help uploading files, then see Help:Uploading files. For the official policy, see Wikitroid:Images.
 CC-BY-SA or public domain images are recommended, though it is very hard to find any free images for games. Copyright-violating images are subject to deletion. Copyright information must be added to the image description page of every uploaded image.
 It is strongly recommended that any images used on this wiki are uploaded directly rather than using links to external sites. Displaying externally hosted images steals bandwidth from other sites, and is a feature which could be switched off in future (as it has been on Wikipedia) so you should not rely on images used in this way always being available.

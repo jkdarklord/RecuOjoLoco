@@ -1,4 +1,4 @@
-http---metroid.wikia.com-wiki-Help-Editing.txt
+http://metroid.wikia.com/wiki/Help:Editing
 This page gives information on how to edit with the Source Code editor. This page doesn't cover information on the visual editor.
 Wikis allow anybody to edit. However, some people may be new to wikis and thus may not know how to edit. This page is for those people. To edit, you don't need to know HTML to edit an article, all you need to know is English and simple wiki code. You don't even have to register to edit!
 The edit button.

@@ -21,7 +21,7 @@ public class IndexerControler
 	private static String indexerPath = Paths.get("").toAbsolutePath().toString() + "\\idx.ser";
 	private static String workDirectory = Paths.get("").toAbsolutePath().toString() + "\\CrawlerFiles\\";
 	
-	private static Indexer idxr;
+	public static Indexer idxr;
 	
 	public static void initialize()
 	{

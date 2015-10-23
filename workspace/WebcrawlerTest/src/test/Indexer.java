@@ -336,7 +336,6 @@ public class Indexer implements Serializable
     
     public PostingsListElement[] getPostings(String term)
     {
-        //JOptionPane.showMessageDialog(null,!wDict.map.containsKey(term));
     	if(!wDict.map.containsKey(term))
     		return null;
     	int termID = wDict.map.get(term).postings;

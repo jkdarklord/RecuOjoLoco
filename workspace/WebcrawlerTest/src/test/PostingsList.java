@@ -163,11 +163,12 @@ public class PostingsList implements Serializable
         
         public PostingsListElement[] listFrom(long index)
         {
-        	ArrayList<PostingsListElement> result = new ArrayList<PostingsListElement>();
+            ArrayList<PostingsListElement> result = new ArrayList<PostingsListElement>();
             PostingsListElement first = elementAt(index);
             
             if(first != null)
             {
+                result.add(first);
                 int i = 1;
                 PostingsListElement next = elementAt(index + 1);
                 while((next != null) && (first.termID == next.termID))

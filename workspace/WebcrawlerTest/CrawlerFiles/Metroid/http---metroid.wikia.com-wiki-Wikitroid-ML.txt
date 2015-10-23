@@ -1,4 +1,4 @@
-http---metroid.wikia.com-wiki-Wikitroid-ML.txt
+http://metroid.wikia.com/wiki/Wikitroid:ML
 This page is an overview of all currently available Wikitroid mailing list.
 A mailing list allows for communication between Wikitroid editors by email, with a centralized email address that distributes emails to everyone subscribed to the list.
 Wikitroid-Announcements is a low traffic mailing list that only admins can post to, but anyone can subscribe to. Announcements from the administrators will be posted to the list, and as such, you won't get very many emails from this list - only important announcements.

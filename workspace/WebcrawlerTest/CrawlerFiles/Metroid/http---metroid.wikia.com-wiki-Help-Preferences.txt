@@ -1,4 +1,4 @@
-http---metroid.wikia.com-wiki-Help-Preferences.txt
+http://metroid.wikia.com/wiki/Help:Preferences
 Once you have created an account and are logged in, you can change your preferences. This help page is to help you understand what you can do with your preferences. Once you have changed your preferences, they will be the same across all Wikia.
 This is the first tab. First of all, you can give your real name and e-mail address. While both are optional, giving your e-mail will allow Wikia to e-mail your password to you if you forget it. If you also "Enable e-mail from other users", then others can e-mail you from your user page or user talk page by using the "E-mail this user" feature in the sidebar under the search box. You can also change your password in this tab.
 Next you can create a signature for yourself. This will appear whenever you type four tildes (~~~~). By default, your signature is Your user name.

@@ -1,4 +1,4 @@
-http---metroid.wikia.com-wiki-Wikitroid-Administrators.txt
+http://metroid.wikia.com/wiki/Wikitroid:Administrators
 Administrators, or sysops, are editors who have access to technical features that help with maintenance. Those include protecting and deleting pages, blocking other editors, and undoing these actions as well.
 The wiki software has a few important features that are restricted to only administrators and bureaucrats.
 Types of identified users, listed here in roughly ascending order of power, include:

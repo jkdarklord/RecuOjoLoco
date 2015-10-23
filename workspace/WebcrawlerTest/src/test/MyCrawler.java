@@ -54,10 +54,9 @@ public class MyCrawler extends WebCrawler {
                 String title = url + ".txt";
                 title = title.replaceAll("[\\/\\\\:\\*\\?\\\"<>\\|]","-");
                 File file = new File(directory, title);
-                //File file = new File(directory, documentsCreated + ".txt");
                 FileWriter fw = new FileWriter(file);
             	PrintWriter pw = new PrintWriter(fw);
-                pw.write(title + "\n");
+                pw.write(url + "\n");
             	  for(Element p : paragraphs){
             		  pw.write(p.text()+"\n");
                   }

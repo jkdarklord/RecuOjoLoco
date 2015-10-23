@@ -5,6 +5,12 @@
  */
 package test;
 
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +66,11 @@ public class SearchInterface extends javax.swing.JFrame {
                 "Results"
             }
         ));
+        tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableResultsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableResults);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -107,13 +118,40 @@ public class SearchInterface extends javax.swing.JFrame {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
-        PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText());
-        DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
-        for(int i=0;i<results.length;i++){
-                model.addRow(new Object[]{results[i].docID});
+        PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText().toLowerCase());
+        if(results==null){
+            JOptionPane.showMessageDialog(null,"Your search didn't return any results.\nPlease try again using different keywords.");
         }
-        
+        else{
+            DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
+            model.setRowCount(0);
+            for(int i=0;i<results.length;i++){
+                try{
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(IndexerControler.idxr.pathFromDocID(results[i].docID)));
+                    model.addRow(new Object[]{bufferedReader.readLine()});
+                    bufferedReader.close();
+                }
+                catch(IOException ex){
+                    System.out.println(ex);
+                }
+                
+            }
+        }
     }//GEN-LAST:event_buttonSearchActionPerformed
+
+    private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
+        int row = tableResults.getSelectedRow();
+        int col = tableResults.getSelectedColumn();
+        if (Desktop.isDesktopSupported()) {
+            try {
+               URI url = new URI(""+tableResults.getValueAt(row, col));
+               Desktop.getDesktop().browse(url);
+              } 
+            catch (Exception e) { 
+                System.err.println(e);
+            }
+        }
+    }//GEN-LAST:event_tableResultsMouseClicked
 
     /**
      * @param args the command line arguments
