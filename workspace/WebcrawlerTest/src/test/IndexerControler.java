@@ -129,5 +129,29 @@ public class IndexerControler
 			ex.printStackTrace();
 		}
 	}
+        
+        public static void deleteSerFiles(){
+            File folder = new File(Paths.get("").toAbsolutePath().toString());
+            File fList[] = folder.listFiles();
+            for (int i = 0; i < fList.length; i++) {
+                File pes = fList[i];
+                if (pes.getName().endsWith(".ser")) {
+                    pes.delete();
+                }
+            }
+        }
+        
+        public static PostingsListElement[] searchQueryOnIndex(String query){
+            String [] tokens = query.split("[^a-zA-Z0-9\\'\\-]");
+            //Lo que en realidad deberia decir, es algo como
+            //PostingsListElement[] results = Indexer.findPostings(tokens[0]);
+            PostingsListElement[] results = new PostingsListElement[10];
+            for(int i=1;i<tokens.length;i++){
+                //Lo que en realidad deberia decir, es algo como
+                //results = Indexer.intersectArrays(results, Indexer.findPostings(tokens[i]));
+                results = Indexer.intersectArrays(results, results);
+            }
+            return results;
+        }
 	
 }

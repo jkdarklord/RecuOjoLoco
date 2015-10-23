@@ -197,6 +197,7 @@ public class CrawlingInterface extends javax.swing.JFrame {
                     if(radioLimitYes.isSelected()){
                         controller.startCrawling(seed,crawlerCount,true,documentMax,textDirectory.getText());
                         JOptionPane.showMessageDialog(null,"Crawling done!");
+                        IndexerControler.run();
                         super.dispose();
                     }
                     else{
@@ -205,6 +206,7 @@ public class CrawlingInterface extends javax.swing.JFrame {
                         if(confirmation==JOptionPane.YES_OPTION){
                             controller.startCrawling(seed,crawlerCount,false,documentMax,textDirectory.getText());
                             JOptionPane.showMessageDialog(null,"Crawling done!");
+                            IndexerControler.run();
                             super.dispose();
                         }
                     }

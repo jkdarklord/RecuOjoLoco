@@ -42,6 +42,8 @@ public class Interface extends javax.swing.JFrame {
         actionNewCrawling = new javax.swing.JMenuItem();
         actionSeeCrawledSites = new javax.swing.JMenuItem();
         actionDeleteCrawledFiles = new javax.swing.JMenuItem();
+        menuIndex = new javax.swing.JMenu();
+        actionDeleteIndexFiles = new javax.swing.JMenuItem();
         actionSearch = new javax.swing.JMenu();
         actionNewSearch = new javax.swing.JMenuItem();
         actionAdvancedSearch = new javax.swing.JMenuItem();
@@ -99,6 +101,19 @@ public class Interface extends javax.swing.JFrame {
         menuCrawler.add(actionDeleteCrawledFiles);
 
         jMenuBar1.add(menuCrawler);
+
+        menuIndex.setText("Index");
+
+        actionDeleteIndexFiles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, java.awt.event.InputEvent.CTRL_MASK));
+        actionDeleteIndexFiles.setText("Delete index files");
+        actionDeleteIndexFiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actionDeleteIndexFilesActionPerformed(evt);
+            }
+        });
+        menuIndex.add(actionDeleteIndexFiles);
+
+        jMenuBar1.add(menuIndex);
 
         actionSearch.setText("Search engine");
 
@@ -237,6 +252,14 @@ public class Interface extends javax.swing.JFrame {
         IndexerControler.run();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void actionDeleteIndexFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionDeleteIndexFilesActionPerformed
+        int confirmation = JOptionPane.showConfirmDialog( null, "Are you sure you want to delete ALL index files?",
+                            "Confirm crawling without limit", JOptionPane.YES_NO_OPTION);
+        if(confirmation==JOptionPane.YES_OPTION){
+            IndexerControler.deleteSerFiles();
+        }
+    }//GEN-LAST:event_actionDeleteIndexFilesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,6 +287,7 @@ public class Interface extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -276,6 +300,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenuItem actionAbout;
     private javax.swing.JMenuItem actionAdvancedSearch;
     private javax.swing.JMenuItem actionDeleteCrawledFiles;
+    private javax.swing.JMenuItem actionDeleteIndexFiles;
     private javax.swing.JMenuItem actionNewCrawling;
     private javax.swing.JMenuItem actionNewSearch;
     private javax.swing.JMenu actionSearch;
@@ -287,5 +312,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel labelMainTitle;
     private javax.swing.JMenu menuCrawler;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuIndex;
     // End of variables declaration//GEN-END:variables
 }
