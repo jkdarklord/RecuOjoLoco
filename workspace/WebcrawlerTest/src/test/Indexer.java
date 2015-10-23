@@ -20,6 +20,7 @@ import java.io.Serializable;
 import static java.lang.System.gc;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.swing.JOptionPane;
 
 public class Indexer implements Serializable
 {
@@ -335,6 +336,7 @@ public class Indexer implements Serializable
     
     public PostingsListElement[] getPostings(String term)
     {
+        //JOptionPane.showMessageDialog(null,!wDict.map.containsKey(term));
     	if(!wDict.map.containsKey(term))
     		return null;
     	int termID = wDict.map.get(term).postings;

@@ -1,0 +1,5 @@
+http---metroid.wikia.com-wiki-Wikitroid-Cleanup.txt
+Some of Wikitroid's articles may be poorly written, not look nice, or have many grammatical errors. However, these articles can be fixed by having a cleanup.
+A cleanup is exactly what the name says. It is a a process of cleaning up an article so that its quality will improve. Pages that look messy, have many grammatical errors, or are just poorly written can be listed as requiring a cleanup. Users will see that these pages are in need of assistance and will work on them to improve them.
+When you've found a page that requires a cleanup, you can then add the cleanup template. At the top of the page, simply add {{cleanup}}. Doing so will add the cleanup boilerplate tag and place the page in the cleanup category.
+

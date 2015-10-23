@@ -5,6 +5,9 @@
  */
 package test;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author zayda
@@ -31,6 +34,8 @@ public class SearchInterface extends javax.swing.JFrame {
         textSearchBar = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
         buttonFeelingLucky = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableResults = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -39,8 +44,23 @@ public class SearchInterface extends javax.swing.JFrame {
         labelTitle.setText("New search");
 
         buttonSearch.setText("Search");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
 
         buttonFeelingLucky.setText("I'm feeling lucky");
+
+        tableResults.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Results"
+            }
+        ));
+        jScrollPane1.setViewportView(tableResults);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,24 +79,41 @@ public class SearchInterface extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(labelTitle)
-                .addGap(69, 69, 69)
-                .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonSearch)
-                    .addComponent(buttonFeelingLucky))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(labelTitle)
+                        .addGap(69, 69, 69)
+                        .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonSearch)
+                            .addComponent(buttonFeelingLucky)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        // TODO add your handling code here:
+        PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText());
+        DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
+        for(int i=0;i<results.length;i++){
+                model.addRow(new Object[]{results[i].docID});
+        }
+        
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,7 +153,9 @@ public class SearchInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonFeelingLucky;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JTable tableResults;
     private javax.swing.JTextField textSearchBar;
     // End of variables declaration//GEN-END:variables
 }
