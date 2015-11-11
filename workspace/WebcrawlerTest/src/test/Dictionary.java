@@ -10,20 +10,20 @@ public class Dictionary implements Serializable
 	
 	public class DictionaryElement implements Serializable
 	{
-		public int count;
+		public int df;
 		public int id;
 		public int postings;
 		
 		public DictionaryElement(int id)
 		{
 			this.id = id;
-			this.count = 0;
+			this.df = 0;
 			this.postings = 0;
 		}
 		
 		public String toString()
 		{
-			return "ID: " + id + ", COUNT:" + count + ", POST:" + postings;
+			return "ID: " + id + ", DOC FREQ:" + df + ", POST:" + postings;
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class Dictionary implements Serializable
 	public int addOcurrence(String term)
 	{
 		int id = addTerm(term);
-		++map.get(term).count;
+		++map.get(term).df;
 		return id;
 	}
 	

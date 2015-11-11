@@ -80,10 +80,10 @@ public class IndexerControler
                     return;
             }
 
-            /*JOptionPane.showMessageDialog(null, idxr.wDict.toString());
+            JOptionPane.showMessageDialog(null, idxr.wDict.toString());
             JOptionPane.showMessageDialog(null, idxr.docList.toString());
             JOptionPane.showMessageDialog(null, idxr.pList.toString());
-            idxr.pList.save();
+            /*idxr.pList.save();
             JOptionPane.showMessageDialog(null, "It is time");
             idxr.pList.load();
             JOptionPane.showMessageDialog(null, idxr.pList.toString());*/

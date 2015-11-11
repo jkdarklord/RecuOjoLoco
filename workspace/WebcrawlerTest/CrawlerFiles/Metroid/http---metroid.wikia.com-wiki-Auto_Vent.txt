@@ -1,6 +1,0 @@
-http://metroid.wikia.com/wiki/Auto_Vent
-The Auto Vent is a feature embedded into the PED Suit. It automatically ends Hypermode usage if Samus Aran remains in it for more than 25 seconds. This is useful if she is unable to safely maintain it and becomes corrupted, even to the point of Phazon Overload.
-It also has a one-time use failsafe that can be used if Samus faces severe Phazon corruption, which vents all of the Energy Tanks in her possession and drains most of the Phazon in her body, while leaving her permanently in Hypermode. This occurred immediately upon landing on Phaaze. Samus' Energy Tanks on the Heads-Up Display are replaced with a Phazon level bar which gradually refills. Once used, the Auto Vent cannot be used again, and Samus is forced to manage her corruption by draining it into objects or enemies or absorbing Anti-Phazon Units. If she fails, she will die of Terminal Corruption.
-PHAZON OVERLOAD! PRESS A TO VENT ENERGY TANKS!
-—Message prompt upon arriving at Phaaze
-

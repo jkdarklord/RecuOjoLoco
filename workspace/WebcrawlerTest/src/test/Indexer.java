@@ -120,6 +120,7 @@ public class Indexer implements Serializable
 			
 			String word;
 			HashMap<String, PostingsListElement> localDict = new HashMap<String, PostingsListElement>();
+                        HashMap<Integer, Long> posList = new HashMap<Integer, Long>();
 			
 			while(sc.hasNext())
 			{
@@ -130,18 +131,28 @@ public class Indexer implements Serializable
 					
 					if(!localDict.containsKey(word))
 					{
+                                                posList.put(id, pList.actualList * pList.maxListSize + pList.postings.size());
 						PostingsListElement p = pList.append(actualID, id, 1);
 						localDict.put(word, p);
 					}
 					else
 					{
-						localDict.get(word).df += 1;
+						localDict.get(word).tf += 1;
 					}
 				}
 				//System.out.println(word);
 			}
 			sc.close();
                         System.out.println(path);
+                        
+                        // Actualizar postinglist con valores finales
+                        Iterator it = localDict.entrySet().iterator();
+                        while (it.hasNext())
+                        {
+                            PostingsListElement actual = (PostingsListElement)((HashMap.Entry)it.next()).getValue();
+                            pList.elementAt(docList.get(actual.termID)).tf = actual.tf;
+                            //it.remove(); // avoids a ConcurrentModificationException
+                        }
 		}
 		//else
 			//System.out.println(path);

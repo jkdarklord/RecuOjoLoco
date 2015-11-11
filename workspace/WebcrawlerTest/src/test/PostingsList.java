@@ -22,18 +22,18 @@ public class PostingsList implements Serializable
 	{
 		public int docID;
 		public int termID;
-		public int df;
+		public int tf;
 		
         public PostingsListElement (int newDocID, int newTermID, int newDF)
         {
             docID = newDocID;
             termID = newTermID;
-            df = newDF;
+            tf = newDF;
         }
                 
 		public String toString()
 		{
-			return docID + " " + termID + " " + df;
+			return docID + " " + termID + " " + tf;
 		}
 		
 		public int compareTo(PostingsListElement other)
@@ -60,7 +60,7 @@ public class PostingsList implements Serializable
                 System.out.println(maxListSize + "");
 	}
 	
-	public PostingsListElement append(int docID, int termID, int df)
+	public PostingsListElement append(int docID, int termID, int tf)
 	{
 		if(actualList == -1)
 		{
@@ -68,7 +68,7 @@ public class PostingsList implements Serializable
 		}
 		checkSize();
 		
-		PostingsListElement p = new PostingsListElement(docID,termID,df);
+		PostingsListElement p = new PostingsListElement(docID,termID,tf);
 		postings.add(p);
 		
 		checkSize();
