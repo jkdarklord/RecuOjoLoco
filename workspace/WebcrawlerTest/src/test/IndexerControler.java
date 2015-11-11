@@ -1,4 +1,4 @@
-package test;
+    package test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,12 +47,15 @@ public class IndexerControler
                             }
                     }
             };
+            
             ArrayList<File> fileList = new ArrayList<File>();
             File temp[] = workingFolder.listFiles(textFilter);
             for(int i = 0; i < temp.length; i++)
             {
                 fileList.add(temp[i]);
             }
+            
+            
             //System.out.println("Dir: " + Arrays.toString(workingFolder.listFiles(textFilter)));
             try
             {
@@ -66,7 +69,7 @@ public class IndexerControler
                         {
                             fileList.add(temp[j]);
                         }
-                        //System.out.println("Dir: " + fi.getPath());
+                        System.out.println("Dir: " + fi.getPath());
                     }
                     else
                     {
@@ -74,11 +77,16 @@ public class IndexerControler
                         //System.out.println("Txt: " + fi.getPath());
                     }
                 }
+                
+            JOptionPane.showMessageDialog(null, "Index creado: OUT");
             } catch (FileNotFoundException e)
             {
                     e.printStackTrace();
                     return;
             }
+            
+            idxr.calculateWeights();
+            idxr.writeWeights();
 
             JOptionPane.showMessageDialog(null, idxr.wDict.toString());
             JOptionPane.showMessageDialog(null, idxr.docList.toString());

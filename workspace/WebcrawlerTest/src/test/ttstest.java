@@ -5,10 +5,13 @@
  */
 package test;
 
+import java.net.URL;
 import java.util.Locale;
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
+import javax.speech.synthesis.*;
+import static javax.speech.synthesis.Voice.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,8 +23,30 @@ public class ttstest extends javax.swing.JFrame {
     /**
      * Creates new form ttstest
      */
-    public ttstest() {
+    
+    Synthesizer  synthesizer;
+    
+    public ttstest()  {
         initComponents();
+        try{
+            System.setProperty("freetts.voices",
+           "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+            Central.registerEngineCentral
+            ("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
+            synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+            
+            synthesizer.allocate();
+            synthesizer.resume();
+            
+            Voice voice = new Voice(null,GENDER_FEMALE,AGE_TEENAGER,null);
+            SynthesizerProperties synthesizerProperties = synthesizer.getSynthesizerProperties();
+            synthesizerProperties.setVoice(voice);
+            
+        }
+        catch(Exception e)
+          {
+            e.printStackTrace();
+          }
     }
 
     /**
@@ -39,7 +64,7 @@ public class ttstest extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnRead.setText("Read");
         btnRead.addActionListener(new java.awt.event.ActionListener() {
@@ -76,27 +101,26 @@ public class ttstest extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
-        try
-        {
-          System.setProperty("freetts.voices",
-           "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-
-          Central.registerEngineCentral
-           ("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
-          Synthesizer  synthesizer =
-           Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
-          synthesizer.allocate();
-          synthesizer.resume();
-          synthesizer.speakPlainText(txtLine.getText(), null);
-          synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-          synthesizer.deallocate();
-         }
+  
+          
+         try{
+            synthesizer.speakPlainText(txtLine.getText(), null);
+            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+          }
           catch(Exception e)
           {
             e.printStackTrace();
           }
+          //synthesizer.deallocate();
     }//GEN-LAST:event_btnReadActionPerformed
 
+    private void exitWindow() throws Exception{
+        synthesizer.deallocate();
+        super.dispose();
+                
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

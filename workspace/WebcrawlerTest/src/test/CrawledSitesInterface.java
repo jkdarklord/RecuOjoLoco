@@ -71,7 +71,7 @@ public class CrawledSitesInterface extends javax.swing.JFrame {
             tableCrawledSites.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        buttonClose.setText("Salir");
+        buttonClose.setText("Exit");
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCloseActionPerformed(evt);

@@ -13,14 +13,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import static java.lang.System.gc;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JOptionPane;
+import static test.MyCrawler.directory;
 
 public class Indexer implements Serializable
 {
@@ -29,6 +32,7 @@ public class Indexer implements Serializable
 	public PostingsList pList;
 	public Dictionary wDict;
 	private int nextID;
+        private WeightVectors[] weights; 
 	
 	public Indexer()
 	{
@@ -122,8 +126,10 @@ public class Indexer implements Serializable
 			HashMap<String, PostingsListElement> localDict = new HashMap<String, PostingsListElement>();
                         HashMap<Integer, Long> posList = new HashMap<Integer, Long>();
 			
+                        int i=0;
 			while(sc.hasNext())
 			{
+                            i++;
 				word = sc.next().toLowerCase();
 				if(!word.isEmpty())
 				{
@@ -147,12 +153,15 @@ public class Indexer implements Serializable
                         
                         // Actualizar postinglist con valores finales
                         Iterator it = localDict.entrySet().iterator();
-                        while (it.hasNext())
-                        {
-                            PostingsListElement actual = (PostingsListElement)((HashMap.Entry)it.next()).getValue();
-                            pList.elementAt(docList.get(actual.termID)).tf = actual.tf;
-                            //it.remove(); // avoids a ConcurrentModificationException
+                        if(!path.contains("seedIndex.txt")){
+                            while (it.hasNext())
+                            {
+                                PostingsListElement actual = (PostingsListElement)((HashMap.Entry)it.next()).getValue();
+                                pList.elementAt(docList.get(actual.termID)).tf = actual.tf; //ESTA LINEA NO FUNCIONA
+                                //it.remove(); // avoids a ConcurrentModificationException
+                            }
                         }
+                        
 		}
 		//else
 			//System.out.println(path);
@@ -352,5 +361,64 @@ public class Indexer implements Serializable
     	int termID = wDict.map.get(term).postings;
     	PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
     	return pList.listFrom(termID);
+    }
+    
+    public int getTermDF(String term){
+        if(!wDict.map.containsKey(term))
+    		return -1;
+    	return wDict.map.get(term).df;
+    }
+    
+    public int getTermTF(String term, int docID){
+        PostingsListElement[] postings = getPostings(term);
+        int i=0;
+        while((i<postings.length)&&(postings[i].docID!=docID)){
+            i++;
+        }
+        if(i<postings.length){
+            return postings[i].tf;
+        }
+        else{
+            return -1;
+        }
+        
+    }
+    
+
+    public void calculateWeights(){
+        weights=new WeightVectors[invertedDocList.size()];
+        
+        Iterator it = wDict.map.entrySet().iterator();
+        for(int i=0;i<weights.length;i++){
+            weights[i]=new WeightVectors(wDict.map.size());
+            for(int j=0;j<wDict.map.size();j++){
+                String actualTerm = (String)((HashMap.Entry)it.next()).getKey();
+                double df = getTermDF(actualTerm);
+                double tf = getTermTF(actualTerm,i);
+                weights[i].termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
+            }
+        }
+    }
+    
+    public void writeWeights(){
+        try{
+        File file = new File(directory, "pesos.txt");
+        FileWriter fw = new FileWriter(file);
+        PrintWriter pw = new PrintWriter(fw);
+        
+        for(int i=0;i<weights.length;i++){
+            String line="";
+            for(int j=0;j<wDict.map.size();j++){
+                line += weights[i].termWeight[j];
+            }
+            pw.write("Documento " + i + ": " + line+"\n");
+        }
+        pw.write("\r\n");
+        pw.close();
+        }
+        catch(Exception e){
+            System.err.println(e);
+        }
+        
     }
 }

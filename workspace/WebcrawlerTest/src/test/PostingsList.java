@@ -182,4 +182,5 @@ public class PostingsList implements Serializable
             result.toArray(l1);
             return l1;
         }
+
 }
