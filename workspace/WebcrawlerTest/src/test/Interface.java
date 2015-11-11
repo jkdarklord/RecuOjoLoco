@@ -35,6 +35,7 @@ public class Interface extends javax.swing.JFrame {
 
         jMenu1 = new javax.swing.JMenu();
         labelMainTitle = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCrawler = new javax.swing.JMenu();
         actionNewCrawling = new javax.swing.JMenuItem();
@@ -54,6 +55,13 @@ public class Interface extends javax.swing.JFrame {
 
         labelMainTitle.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         labelMainTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         menuCrawler.setText("Crawler");
 
@@ -144,13 +152,19 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(labelMainTitle)
                 .addGap(106, 106, 106))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(labelMainTitle)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,6 +202,10 @@ public class Interface extends javax.swing.JFrame {
             IndexerControler.initialize();
         }
     }//GEN-LAST:event_actionDeleteIndexFilesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ttstest().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,6 +253,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenuItem actionNewSearch;
     private javax.swing.JMenu actionSearch;
     private javax.swing.JMenuItem actionSeeCrawledSites;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelMainTitle;
