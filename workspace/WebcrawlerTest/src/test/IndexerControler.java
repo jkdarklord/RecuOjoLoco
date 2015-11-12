@@ -174,7 +174,7 @@ public class IndexerControler
                 //Lo que en realidad deberia decir, es algo como
                 results = Indexer.intersectArrays(results, idxr.getPostings(tokens[i]));
             }
-            //results = Indexer.sortByCosine(tokens, results);
+            results = idxr.sortByCosine(tokens, results);
             return results;
         }
         

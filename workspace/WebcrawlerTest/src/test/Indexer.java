@@ -22,6 +22,7 @@ import java.io.Serializable;
 import static java.lang.System.gc;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import static test.MyCrawler.directory;
 
@@ -152,14 +153,15 @@ public class Indexer implements Serializable
                         System.out.println(path);
                         
                         // Actualizar postinglist con valores finales
-                        for(String key : localDict.keySet())
-                        {
-                                System.out.print("Rapunzel: " + key);
-                                if(localDict.get(key) != null)
-                                    pList.elementAt(docList.get(key)).tf = localDict.get(key).tf;
-                                //it.remove(); // avoids a ConcurrentModificationException
+                        if(!path.contains("seedIndex.txt")){
+                            for(String key : localDict.keySet())
+                            {
+                                    System.out.print("Rapunzel: " + key);
+                                    if(localDict.get(key) != null)
+                                        pList.elementAt(docList.get(key)).tf = localDict.get(key).tf;
+                                    //it.remove(); // avoids a ConcurrentModificationException
+                            }
                         }
-                        
 		}
 		//else
 			//System.out.println(path);
@@ -220,23 +222,11 @@ public class Indexer implements Serializable
         int j = higherIndex;
         PostingsListElement pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
         while (i <= j) {
-            /*
-            A punta de ahorita, lo que tengo en queryVector es el vector tf-idf de la consulta.
-            Lo que hay que hacer para sortear, es comparar el coseno obtenido al comparar la query
-            con un documento, con el coseno obtenido al comparar la query con otro documento.
             
-            Es decir, hay que agarrar el array[i], sacarle el docID, e ir a traer el vector
-            de ese documento. Con eso, se saca el coseno (entre ese vector y el de la query), 
-            y eso es lo que se usa para comparar.
-            
-            
-            */
-            
-            
-            while (array[i].docID < pivot.docID) {
+            while (weights[array[i].docID].getCosineSimilarity(queryVector) < weights[pivot.docID].getCosineSimilarity(queryVector)) {
                 i++;
             }
-            while (array[j].docID > pivot.docID) {
+            while (weights[array[j].docID].getCosineSimilarity(queryVector) > weights[pivot.docID].getCosineSimilarity(queryVector)) {
                 j--;
             }
             if (i <= j) {
@@ -449,7 +439,8 @@ public class Indexer implements Serializable
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
         Iterator it = wDict.map.entrySet().iterator();
             for(int j=0;j<wDict.map.size();j++){
-                String actualTerm = (String)((HashMap.Entry)it.next()).getKey();
+                Map.Entry pair = (Map.Entry)it.next();
+                String actualTerm = (String )pair.getKey();
                 double df = getTermDF(actualTerm);
                 double tf = getTermTF(actualTerm,docID);
                 TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
@@ -462,7 +453,8 @@ public class Indexer implements Serializable
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
         Iterator it = wDict.map.entrySet().iterator();
         for(int j=0;j<wDict.map.size();j++){
-                String actualTerm = (String)((HashMap.Entry)it.next()).getKey();
+                Map.Entry pair = (Map.Entry)it.next();
+                String actualTerm = (String)pair.getKey();
                 double df = getTermDF(actualTerm);
                 double tf = manuallyGetTermTF(actualTerm,queryTokens);
                 TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
