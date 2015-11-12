@@ -152,14 +152,12 @@ public class Indexer implements Serializable
                         System.out.println(path);
                         
                         // Actualizar postinglist con valores finales
-                        Iterator it = localDict.entrySet().iterator();
-                        if(!path.contains("seedIndex.txt")){
-                            while (it.hasNext())
-                            {
-                                PostingsListElement actual = (PostingsListElement)((HashMap.Entry)it.next()).getValue();
-                                pList.elementAt(docList.get(actual.termID)).tf = actual.tf; //ESTA LINEA NO FUNCIONA
+                        for(String key : localDict.keySet())
+                        {
+                                System.out.print("Rapunzel: " + key);
+                                if(localDict.get(key) != null)
+                                    pList.elementAt(docList.get(key)).tf = localDict.get(key).tf;
                                 //it.remove(); // avoids a ConcurrentModificationException
-                            }
                         }
                         
 		}
