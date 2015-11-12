@@ -214,9 +214,10 @@ public class CrawlingInterface extends javax.swing.JFrame {
             }
         }
         catch(Exception e){
-            if(e.getClass().getName().equals("NumberFormatException")){
+            /*if(e.getClass().getName().equals("NumberFormatException")){
                 JOptionPane.showMessageDialog(null,"Make sure to enter a valid crawler count (i.d. a positive integer)");
-            }
+            }*/
+            System.err.print(e);
         }
     }//GEN-LAST:event_buttonCrawlActionPerformed
 

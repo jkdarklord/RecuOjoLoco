@@ -1,2 +1,2 @@
 
-default@http://metroid.wikia.com/wiki/@10
+Touhou@http://en.touhouwiki.net/wiki/@117
