@@ -211,6 +211,50 @@ public class Indexer implements Serializable
             quickSort(i, higherIndex,array);
         return array;
     }
+    
+    public PostingsListElement[] sortByCosine(String [] tokens, PostingsListElement[] inputArr) {
+        return quickSortCosine(0, inputArr.length - 1, inputArr,tokens);
+    }
+ 
+    private  PostingsListElement[] quickSortCosine(int lowerIndex, int higherIndex, PostingsListElement[] array,String [] tokens) {
+        WeightVectors queryVector = queryTFIDF(tokens);
+        int i = lowerIndex;
+        int j = higherIndex;
+        PostingsListElement pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
+        while (i <= j) {
+            /*
+            A punta de ahorita, lo que tengo en queryVector es el vector tf-idf de la consulta.
+            Lo que hay que hacer para sortear, es comparar el coseno obtenido al comparar la query
+            con un documento, con el coseno obtenido al comparar la query con otro documento.
+            
+            Es decir, hay que agarrar el array[i], sacarle el docID, e ir a traer el vector
+            de ese documento. Con eso, se saca el coseno (entre ese vector y el de la query), 
+            y eso es lo que se usa para comparar.
+            
+            
+            */
+            
+            
+            while (array[i].docID < pivot.docID) {
+                i++;
+            }
+            while (array[j].docID > pivot.docID) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeElements(i, j, array);
+                i++;
+                j--;
+            }
+        }
+        if (lowerIndex < j)
+            quickSort(lowerIndex, j,array);
+        if (i < higherIndex)
+            quickSort(i, higherIndex,array);
+        return array;
+    }
+    
+    
  
     private static void exchangeElements(int i, int j, PostingsListElement[] array) {
         PostingsListElement temp = array[i];
@@ -384,21 +428,51 @@ public class Indexer implements Serializable
         
     }
     
+    public int manuallyGetTermTF(String term, String [] queryTokens){
+        int count = 0;
+        for(int i=0;i<queryTokens.length;i++){
+            if(queryTokens.equals(term)){
+                count++;
+            }
+        }
+        return count;
+    }
+    
 
     public void calculateWeights(){
         weights=new WeightVectors[invertedDocList.size()];
         
-        Iterator it = wDict.map.entrySet().iterator();
         for(int i=0;i<weights.length;i++){
-            weights[i]=new WeightVectors(wDict.map.size());
+            weights[i] = calculateTFIDFWeightVector(i);
+        }
+    }
+    
+    public WeightVectors calculateTFIDFWeightVector(int docID){
+        WeightVectors TFIDF =new WeightVectors(wDict.map.size());
+        Iterator it = wDict.map.entrySet().iterator();
             for(int j=0;j<wDict.map.size();j++){
                 String actualTerm = (String)((HashMap.Entry)it.next()).getKey();
                 double df = getTermDF(actualTerm);
-                double tf = getTermTF(actualTerm,i);
-                weights[i].termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
+                double tf = getTermTF(actualTerm,docID);
+                TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
             }
-        }
+            TFIDF.normalizeVector();
+            return TFIDF;
     }
+    
+    public WeightVectors queryTFIDF (String [] queryTokens){
+        WeightVectors TFIDF =new WeightVectors(wDict.map.size());
+        Iterator it = wDict.map.entrySet().iterator();
+        for(int j=0;j<wDict.map.size();j++){
+                String actualTerm = (String)((HashMap.Entry)it.next()).getKey();
+                double df = getTermDF(actualTerm);
+                double tf = manuallyGetTermTF(actualTerm,queryTokens);
+                TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
+        }
+        TFIDF.normalizeVector();
+        return TFIDF;
+    }
+    
     
     public void writeWeights(){
         try{

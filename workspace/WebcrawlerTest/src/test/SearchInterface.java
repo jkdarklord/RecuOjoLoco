@@ -118,6 +118,7 @@ public class SearchInterface extends javax.swing.JFrame {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
+        //PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
         PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText().toLowerCase());
         if(results==null){
             JOptionPane.showMessageDialog(null,"Your search didn't return any results.\nPlease try again using different keywords.");

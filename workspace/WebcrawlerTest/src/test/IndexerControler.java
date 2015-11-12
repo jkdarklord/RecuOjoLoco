@@ -165,5 +165,18 @@ public class IndexerControler
             }
             return results;
         }
+        
+        public PostingsListElement[] searchQueryOnIndex2(String query){
+            String [] tokens = query.split("[^a-zA-Z0-9\\'\\-]");
+            //Lo que en realidad deberia decir, es algo como
+            PostingsListElement[] results = idxr.getPostings(tokens[0]);
+            for(int i=1;i<tokens.length;i++){
+                //Lo que en realidad deberia decir, es algo como
+                results = Indexer.intersectArrays(results, idxr.getPostings(tokens[i]));
+            }
+            //results = Indexer.sortByCosine(tokens, results);
+            return results;
+        }
+        
 	
 }
