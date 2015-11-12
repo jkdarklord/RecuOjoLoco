@@ -473,7 +473,7 @@ public class Indexer implements Serializable
         for(int i=0;i<weights.length;i++){
             String line="";
             for(int j=0;j<wDict.map.size();j++){
-                line += weights[i].termWeight[j];
+                line += weights[i].termWeight[j] + " ";
             }
             pw.write("Documento " + i + ": " + line+"\n");
         }
