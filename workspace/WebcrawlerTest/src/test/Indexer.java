@@ -115,7 +115,8 @@ public class Indexer implements Serializable
 	{
 		if(!docList.containsKey(path))
 		{
-			File f = new File(path);
+                    if(!path.contains("seedIndex.txt")){
+                        File f = new File(path);
 			Scanner sc = new Scanner(f);
 			sc.useDelimiter("[^a-zA-Z0-9\\'\\-]");
 			
@@ -154,7 +155,7 @@ public class Indexer implements Serializable
                         System.out.println(path);
                         
                         // Actualizar postinglist con valores finales
-                        if(!path.contains("seedIndex.txt")){
+                        
                             for(String key : localDict.keySet())
                             {
                                     if(localDict.get(key) != null)
@@ -391,14 +392,14 @@ public class Indexer implements Serializable
     {
     	if(!wDict.map.containsKey(term))
     		return null;
-    	int termID = wDict.map.get(term).postings;
+    	int termID = wDict.map.get(term).id;
     	PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
     	return pList.listFrom(termID);
     }
     
     public int getTermDF(String term){
         if(!wDict.map.containsKey(term))
-    		return -1;
+    		return 0;
     	return wDict.map.get(term).df;
     }
     
@@ -412,7 +413,7 @@ public class Indexer implements Serializable
             return postings[i].tf;
         }
         else{
-            return -1;
+            return 0;
         }
         
     }
@@ -437,6 +438,7 @@ public class Indexer implements Serializable
     }
     
     public WeightVectors calculateTFIDFWeightVector(int docID){
+        JOptionPane.showMessageDialog(null,"Voy a procesar el archivo " + pathFromDocID(docID));
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
         Iterator it = wDict.map.entrySet().iterator();
             for(int j=0;j<wDict.map.size();j++){
@@ -444,7 +446,13 @@ public class Indexer implements Serializable
                 String actualTerm = (String )pair.getKey();
                 double df = getTermDF(actualTerm);
                 double tf = getTermTF(actualTerm,docID);
-                TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
+                if(tf>0){
+                    TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
+                }
+                else{
+                    TFIDF.termWeight[j]= 0;
+                }
+                
             }
             TFIDF.normalizeVector();
             return TFIDF;
