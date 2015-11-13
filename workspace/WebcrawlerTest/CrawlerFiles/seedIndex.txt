@@ -1,2 +1,2 @@
 
-default@http://metroid.wikia.com/wiki/@10
+Metroid@http://metroid.wikia.com/wiki/@10

@@ -1,3 +1,4 @@
+
 package test;
 
 import java.util.HashMap;
@@ -125,7 +126,7 @@ public class Indexer implements Serializable
 			
 			String word;
 			HashMap<String, PostingsListElement> localDict = new HashMap<String, PostingsListElement>();
-                        HashMap<Integer, Long> posList = new HashMap<Integer, Long>();
+                        HashMap<String, Long> posList = new HashMap<String, Long>();
 			
                         int i=0;
 			while(sc.hasNext())
@@ -138,7 +139,7 @@ public class Indexer implements Serializable
 					
 					if(!localDict.containsKey(word))
 					{
-                                                posList.put(id, pList.actualList * pList.maxListSize + pList.postings.size());
+                                                posList.put(word, pList.actualList * pList.maxListSize + pList.postings.size());
 						PostingsListElement p = pList.append(actualID, id, 1);
 						localDict.put(word, p);
 					}
@@ -156,9 +157,9 @@ public class Indexer implements Serializable
                         if(!path.contains("seedIndex.txt")){
                             for(String key : localDict.keySet())
                             {
-                                    System.out.print("Rapunzel: " + key);
                                     if(localDict.get(key) != null)
-                                        pList.elementAt(docList.get(key)).tf = localDict.get(key).tf;
+                                        pList.elementAt(posList.get(key)).tf = localDict.get(key).tf;
+                                        
                                     //it.remove(); // avoids a ConcurrentModificationException
                             }
                         }

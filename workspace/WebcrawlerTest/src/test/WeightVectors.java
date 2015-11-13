@@ -5,13 +5,14 @@
  */
 package test;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author B25201
  */
-public class WeightVectors {
+public class WeightVectors implements Serializable {
     
     double[] termWeight;
 	
