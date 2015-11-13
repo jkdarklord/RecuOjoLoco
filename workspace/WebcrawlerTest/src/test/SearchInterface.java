@@ -6,6 +6,7 @@
 package test;
 
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -45,6 +46,11 @@ public class SearchInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelTitle.setText("New search");
@@ -118,8 +124,33 @@ public class SearchInterface extends javax.swing.JFrame {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
-        //PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
-        PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText().toLowerCase());
+        //PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText().toLowerCase());
+        doSearch();
+    }//GEN-LAST:event_buttonSearchActionPerformed
+
+    private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
+        int row = tableResults.getSelectedRow();
+        int col = tableResults.getSelectedColumn();
+        if (Desktop.isDesktopSupported()) {
+            try {
+               URI url = new URI(""+tableResults.getValueAt(row, col));
+               Desktop.getDesktop().browse(url);
+              } 
+            catch (Exception e) { 
+                System.err.println(e);
+            }
+        }
+    }//GEN-LAST:event_tableResultsMouseClicked
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            doSearch();
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void doSearch(){
+        PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
         if(results==null){
             JOptionPane.showMessageDialog(null,"Your search didn't return any results.\nPlease try again using different keywords.");
         }
@@ -138,22 +169,8 @@ public class SearchInterface extends javax.swing.JFrame {
                 
             }
         }
-    }//GEN-LAST:event_buttonSearchActionPerformed
-
-    private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
-        int row = tableResults.getSelectedRow();
-        int col = tableResults.getSelectedColumn();
-        if (Desktop.isDesktopSupported()) {
-            try {
-               URI url = new URI(""+tableResults.getValueAt(row, col));
-               Desktop.getDesktop().browse(url);
-              } 
-            catch (Exception e) { 
-                System.err.println(e);
-            }
-        }
-    }//GEN-LAST:event_tableResultsMouseClicked
-
+    }
+    
     /**
      * @param args the command line arguments
      */

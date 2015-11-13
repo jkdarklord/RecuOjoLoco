@@ -170,12 +170,14 @@ public class PostingsList implements Serializable
             {
                 result.add(first);
                 int i = 1;
-                PostingsListElement next = elementAt(index + 1);
-                while((next != null) && (first.termID == next.termID))
-                {
-                    result.add(next);
-                    ++i;
-                    next = elementAt(index + i);
+                if(index+1<postings.size()){
+                    PostingsListElement next = elementAt(index + 1);
+                    while((next != null) && (first.termID == next.termID))
+                    {
+                        result.add(next);
+                        ++i;
+                        next = elementAt(index + i);
+                    }
                 }
             }
             PostingsListElement[] l1 = new PostingsListElement[result.size()];

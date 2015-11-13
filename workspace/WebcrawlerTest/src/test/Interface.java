@@ -52,6 +52,7 @@ public class Interface extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         labelMainTitle.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         labelMainTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N

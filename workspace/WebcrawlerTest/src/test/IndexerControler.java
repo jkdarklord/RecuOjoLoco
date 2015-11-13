@@ -99,6 +99,9 @@ public class IndexerControler
             
             idxr.calculateWeights();
             idxr.writeWeights();
+            
+            
+            saveIndexer(idxr);
 	}
 	
 	private static Indexer loadIndexer()
@@ -166,7 +169,7 @@ public class IndexerControler
             return results;
         }
         
-        public PostingsListElement[] searchQueryOnIndex2(String query){
+        public static PostingsListElement[] searchQueryOnIndex2(String query){
             String [] tokens = query.split("[^a-zA-Z0-9\\'\\-]");
             //Lo que en realidad deberia decir, es algo como
             PostingsListElement[] results = idxr.getPostings(tokens[0]);
@@ -174,7 +177,9 @@ public class IndexerControler
                 //Lo que en realidad deberia decir, es algo como
                 results = Indexer.intersectArrays(results, idxr.getPostings(tokens[i]));
             }
-            results = idxr.sortByCosine(tokens, results);
+            if(results!=null){
+                results = idxr.sortByCosine(tokens, results);
+            }
             return results;
         }
         
