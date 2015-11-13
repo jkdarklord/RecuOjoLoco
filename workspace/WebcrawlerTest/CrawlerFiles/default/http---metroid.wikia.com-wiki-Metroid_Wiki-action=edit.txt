@@ -1,5 +1,0 @@
-http://metroid.wikia.com/wiki/Metroid_Wiki?action=edit
-Learn more about editing the main page.
-Insert: – — … ° ≈ ≠ ≤ ≥ ± − × ÷ ← → · §  Sign your username: ~~~~
-Wiki markup: {{}}   |   []   [[]]   [[Category:]]   [[Wikipedia:]]   #REDIRECT [[]]   <br clear="all" />   <u></u>   <s></s>   <sup></sup>   <sub></sub>   <pre></pre>   <code></code>   <ref></ref>   {{Reflist}}   <references/>   <includeonly></includeonly>   <noinclude></noinclude>   <nowiki></nowiki>   <youtube></youtube>   <gallery></gallery>   <small></small>   <center></center>   <!-- --> 
-

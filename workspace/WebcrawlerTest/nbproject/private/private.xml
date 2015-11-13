@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/B25201/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/CrawlingInterface.java</file>
-            <file>file:/C:/Users/B25201/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/Indexer.java</file>
-            <file>file:/C:/Users/B25201/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/IndexerControler.java</file>
-            <file>file:/C:/Users/B25201/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/WeightVectors.java</file>
+            <file>file:/C:/Users/Artist/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/IndexerControler.java</file>
+            <file>file:/C:/Users/Artist/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/Indexer.java</file>
+            <file>file:/C:/Users/Artist/Desktop/RecuOjoLoco/workspace/WebcrawlerTest/src/test/PostingsList.java</file>
         </group>
     </open-files>
 </project-private>

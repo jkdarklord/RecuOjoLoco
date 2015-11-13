@@ -85,11 +85,8 @@ public class IndexerControler
                     return;
             }
             
-            idxr.calculateWeights();
-            idxr.writeWeights();
-
+            
             /*JOptionPane.showMessageDialog(null, idxr.wDict.toString());
-            JOptionPane.showMessageDialog(null, idxr.docList.toString());
             JOptionPane.showMessageDialog(null, idxr.pList.toString());
             idxr.pList.save();
             JOptionPane.showMessageDialog(null, "It is time");
@@ -99,6 +96,9 @@ public class IndexerControler
             //JOptionPane.showMessageDialog(null, idxr.pList.toString());
             saveIndexer(idxr);
             idxr.pList.save();
+            
+            idxr.calculateWeights();
+            idxr.writeWeights();
 	}
 	
 	private static Indexer loadIndexer()

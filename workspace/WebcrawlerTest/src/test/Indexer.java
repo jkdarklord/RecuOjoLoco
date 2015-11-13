@@ -392,9 +392,9 @@ public class Indexer implements Serializable
     {
     	if(!wDict.map.containsKey(term))
     		return null;
-    	int termID = wDict.map.get(term).id;
+    	int postingsLoc = wDict.map.get(term).postings;
     	PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
-    	return pList.listFrom(termID);
+    	return pList.listFrom(postingsLoc);
     }
     
     public int getTermDF(String term){
