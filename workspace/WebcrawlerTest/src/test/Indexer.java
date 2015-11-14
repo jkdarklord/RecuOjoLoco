@@ -440,7 +440,7 @@ public class Indexer implements Serializable
     }
     
     public WeightVectors calculateTFIDFWeightVector(int docID){
-        JOptionPane.showMessageDialog(null,"Voy a procesar el archivo " + pathFromDocID(docID));
+        //JOptionPane.showMessageDialog(null,"Voy a procesar el archivo " + pathFromDocID(docID));
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
         Iterator it = wDict.map.entrySet().iterator();
     

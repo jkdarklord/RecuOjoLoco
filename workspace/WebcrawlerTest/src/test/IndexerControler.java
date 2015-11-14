@@ -55,7 +55,7 @@ public class IndexerControler
                 fileList.add(temp[i]);
             }
             
-            
+            //long startTime = System.currentTimeMillis();
             //System.out.println("Dir: " + Arrays.toString(workingFolder.listFiles(textFilter)));
             try
             {
@@ -78,7 +78,7 @@ public class IndexerControler
                     }
                 }
                 
-            JOptionPane.showMessageDialog(null, "Index creado: OUT");
+            //JOptionPane.showMessageDialog(null, "Index creado: OUT");
             } catch (FileNotFoundException e)
             {
                     e.printStackTrace();
@@ -94,13 +94,17 @@ public class IndexerControler
             JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
             idxr.BSBIMerge();
             //JOptionPane.showMessageDialog(null, idxr.pList.toString());
-            saveIndexer(idxr);
-            idxr.pList.save();
+            //saveIndexer(idxr);
+            //idxr.pList.save();
             
             idxr.calculateWeights();
             idxr.writeWeights();
             
+            /*long endTime   = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+            JOptionPane.showMessageDialog(null, "Tiempo durado: " + totalTime);*/
             
+            idxr.pList.save();
             saveIndexer(idxr);
 	}
 	
