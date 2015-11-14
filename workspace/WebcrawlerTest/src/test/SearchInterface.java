@@ -136,17 +136,22 @@ public class SearchInterface extends javax.swing.JFrame {
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         int row = tableResults.getSelectedRow();
         int col = tableResults.getSelectedColumn();
+        String URI = (String )tableResults.getValueAt(row, col);
+        accessURL(URI);
+    }//GEN-LAST:event_tableResultsMouseClicked
+
+    private void accessURL(String urlPath){
         if (Desktop.isDesktopSupported()) {
             try {
-               URI url = new URI(""+tableResults.getValueAt(row, col));
+               URI url = new URI(""+ urlPath);
                Desktop.getDesktop().browse(url);
               } 
             catch (Exception e) { 
                 System.err.println(e);
             }
         }
-    }//GEN-LAST:event_tableResultsMouseClicked
-
+    }
+    
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -174,7 +179,12 @@ public class SearchInterface extends javax.swing.JFrame {
             for(int i=0;i<limit;i++){
                 try{
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(IndexerControler.idxr.pathFromDocID(results[i].docID)));
-                    model.addRow(new Object[]{bufferedReader.readLine()});
+                    if(special){
+                        accessURL(bufferedReader.readLine());
+                    }
+                    else{
+                        model.addRow(new Object[]{bufferedReader.readLine()});
+                    }
                     bufferedReader.close();
                 }
                 catch(IOException ex){
