@@ -49,7 +49,7 @@ public class CrawlingInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        labelDocumentLimit.setText("Limit the amount of documents?");
+        labelDocumentLimit.setText("Limit the amount of crawled sites?");
 
         textCrawlerCount.setText("1");
 
@@ -75,7 +75,7 @@ public class CrawlingInterface extends javax.swing.JFrame {
             }
         });
 
-        labelDocumentMax.setText("Maximum amount of documents to create");
+        labelDocumentMax.setText("Maximum amount of sites  to crawl");
 
         textDocumentMax.setText("1");
 
@@ -204,8 +204,9 @@ public class CrawlingInterface extends javax.swing.JFrame {
                         int confirmation = JOptionPane.showConfirmDialog( null, "Are you sure you don't want to limit the crawling?\nIf you don't limit it, the crawler will download all\nand every single file it finds, which could lead to a really\nlong process, and an inmense use of disk space.\nDo you really want to continue?",
                             "Confirm crawling without limit", JOptionPane.YES_NO_OPTION);
                         if(confirmation==JOptionPane.YES_OPTION){
+                            JOptionPane.showMessageDialog(null,"The crawling will begin. Please be patient. The crawling\nwindow will close itself when the process is done. Please wait.");
                             controller.startCrawling(seed,crawlerCount,false,documentMax,textDirectory.getText());
-                            JOptionPane.showMessageDialog(null,"Crawling done!");
+                            JOptionPane.showMessageDialog(null,"Crawling done! Processing will begin.\nThe window will close itself when done.");
                             IndexerControler.run();
                             super.dispose();
                         }
@@ -214,10 +215,13 @@ public class CrawlingInterface extends javax.swing.JFrame {
             }
         }
         catch(Exception e){
-            /*if(e.getClass().getName().equals("NumberFormatException")){
+            if(e.getClass().getName().equals("NumberFormatException")){
                 JOptionPane.showMessageDialog(null,"Make sure to enter a valid crawler count (i.d. a positive integer)");
-            }*/
-            System.err.print(e);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Not controlled error! Please try again");
+                System.err.println(e);
+            }
         }
     }//GEN-LAST:event_buttonCrawlActionPerformed
 

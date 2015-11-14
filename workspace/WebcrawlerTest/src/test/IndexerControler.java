@@ -48,6 +48,7 @@ public class IndexerControler
                     }
             };
             
+            
             ArrayList<File> fileList = new ArrayList<File>();
             File temp[] = workingFolder.listFiles(textFilter);
             for(int i = 0; i < temp.length; i++)

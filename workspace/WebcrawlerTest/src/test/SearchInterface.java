@@ -63,6 +63,11 @@ public class SearchInterface extends javax.swing.JFrame {
         });
 
         buttonFeelingLucky.setText("I'm feeling lucky");
+        buttonFeelingLucky.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFeelingLuckyActionPerformed(evt);
+            }
+        });
 
         tableResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,31 +130,41 @@ public class SearchInterface extends javax.swing.JFrame {
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
         //PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex(textSearchBar.getText().toLowerCase());
-        doSearch();
+        doSearch(false);
     }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         int row = tableResults.getSelectedRow();
         int col = tableResults.getSelectedColumn();
+        String URI = (String )tableResults.getValueAt(row, col);
+        accessURL(URI);
+    }//GEN-LAST:event_tableResultsMouseClicked
+
+    private void accessURL(String urlPath){
         if (Desktop.isDesktopSupported()) {
             try {
-               URI url = new URI(""+tableResults.getValueAt(row, col));
+               URI url = new URI(""+ urlPath);
                Desktop.getDesktop().browse(url);
               } 
             catch (Exception e) { 
                 System.err.println(e);
             }
         }
-    }//GEN-LAST:event_tableResultsMouseClicked
-
+    }
+    
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            doSearch();
+            doSearch(false);
         }
     }//GEN-LAST:event_formKeyPressed
 
-    private void doSearch(){
+    private void buttonFeelingLuckyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFeelingLuckyActionPerformed
+        // TODO add your handling code here:
+        doSearch(true);
+    }//GEN-LAST:event_buttonFeelingLuckyActionPerformed
+
+    private void doSearch(boolean special){
         PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
         if(results==null){
             JOptionPane.showMessageDialog(null,"Your search didn't return any results.\nPlease try again using different keywords.");
@@ -157,10 +172,19 @@ public class SearchInterface extends javax.swing.JFrame {
         else{
             DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
             model.setRowCount(0);
-            for(int i=0;i<results.length;i++){
+            int limit = results.length;
+            if (special){
+                limit = 1;
+            }
+            for(int i=0;i<limit;i++){
                 try{
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(IndexerControler.idxr.pathFromDocID(results[i].docID)));
-                    model.addRow(new Object[]{bufferedReader.readLine()});
+                    if(special){
+                        accessURL(bufferedReader.readLine());
+                    }
+                    else{
+                        model.addRow(new Object[]{bufferedReader.readLine()});
+                    }
                     bufferedReader.close();
                 }
                 catch(IOException ex){
