@@ -78,7 +78,6 @@ public class IndexerControler
                     }
                 }
                 
-            JOptionPane.showMessageDialog(null, "Index creado: OUT");
             } catch (FileNotFoundException e)
             {
                     e.printStackTrace();

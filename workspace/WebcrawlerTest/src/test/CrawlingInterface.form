@@ -110,7 +110,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelDocumentLimit">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Limit the amount of documents?"/>
+        <Property name="text" type="java.lang.String" value="Limit the amount of crawled sites?"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textCrawlerCount">
@@ -145,7 +145,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelDocumentMax">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Maximum amount of documents to create"/>
+        <Property name="text" type="java.lang.String" value="Maximum amount of sites  to crawl"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textURLDomain">
