@@ -1,3 +1,0 @@
-
-default@http://metroid.wikia.com/wiki/@60
-default@http://metroid.wikia.com/wiki/@10
