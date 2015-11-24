@@ -192,7 +192,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_actionAdvancedSearchActionPerformed
 
     private void actionAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionAboutActionPerformed
-        JOptionPane.showMessageDialog(null,"Créditos a Lyon y Juank :3");
+        JOptionPane.showMessageDialog(null,"Créditos a Lyon, Juank y Blopz :3");
     }//GEN-LAST:event_actionAboutActionPerformed
 
     private void actionDeleteIndexFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionDeleteIndexFilesActionPerformed
