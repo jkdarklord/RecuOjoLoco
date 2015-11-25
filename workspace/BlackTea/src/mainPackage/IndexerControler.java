@@ -30,9 +30,15 @@ public class IndexerControler
 	
 	public static void run()
 	{
+            // Carga el directorio de trabajo
             File workingFolder = new File(workDirectory);
+            // Variables utilizadas por los algoritmos
+            File fi;
+            int i,j;
+            
             //System.out.println(Paths.get("").toAbsolutePath().toString() + "\\CrawlerFiles\\");
             
+            // Filtro utilizado al elegir documentos a procesar: solo .txt o directorios
             FilenameFilter textFilter = new FilenameFilter()
             {
                     public boolean accept(File dir, String name)
@@ -48,10 +54,10 @@ public class IndexerControler
                     }
             };
             
-            
+            // Agrega todas las direcciones contenidas en el directorio de trabajo que cumplen con el filtro a la lista
             ArrayList<File> fileList = new ArrayList<File>();
             File temp[] = workingFolder.listFiles(textFilter);
-            for(int i = 0; i < temp.length; i++)
+            for(i = 0; i < temp.length; i++)
             {
                 fileList.add(temp[i]);
             }
@@ -60,13 +66,15 @@ public class IndexerControler
             //System.out.println("Dir: " + Arrays.toString(workingFolder.listFiles(textFilter)));
             try
             {
-                for( int i = 0; i < fileList.size(); ++i )
+                // Para cada documento de la lista
+                for(i = 0; i < fileList.size(); i++)
                 {
-                    File fi = fileList.get(i);
+                    fi = fileList.get(i);
                     if(fi.isDirectory())
                     {
+                        // Si es directorio agrega su contenido que cumplen con el filtro al final de la lista
                         temp = fi.listFiles(textFilter);
-                        for(int j = 0; j < temp.length; j++)
+                        for(j = 0; j < temp.length; j++)
                         {
                             fileList.add(temp[j]);
                         }
@@ -74,12 +82,10 @@ public class IndexerControler
                     }
                     else
                     {
+                        // Si es un .txt entonces lo indexa
                         idxr.parseDocument(fi.getPath());
-                        //System.out.println("Txt: " + fi.getPath());
                     }
                 }
-                
-            //JOptionPane.showMessageDialog(null, "Index creado: OUT");
             } catch (FileNotFoundException e)
             {
                     e.printStackTrace();
