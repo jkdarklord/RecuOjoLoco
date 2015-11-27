@@ -38,135 +38,77 @@ public class Indexer implements Serializable
 	
 	public Indexer()
 	{
+            // Constructor, crea la lista de documentos, la lista inversa, la lista de postings y el diccionario
 		docList = new HashMap<String, Integer>();
 		invertedDocList = new HashMap<Integer, String>();
 		pList = new PostingsList();
 		wDict = new Dictionary();
 		nextID = 0;
 	}
-	/*
-	public void load()
-	{
-		File docListFile = new File("docs.ser");
-		if(docListFile.exists())
-		{
-			try
-			{
-				FileInputStream file = new FileInputStream("docs.ser");
-				ObjectInputStream input = new ObjectInputStream(file);
-				docList = (HashMap<String, Integer>) input.readObject();
-				input.close();
-			}catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else
-		{
-			docList = new HashMap<String, Integer>();
-		}
-		
-		File dictionaryFile = new File("dict.ser");
-		if(dictionaryFile.exists())
-		{
-			try
-			{
-				FileInputStream file = new FileInputStream("dict.ser");
-				ObjectInputStream input = new ObjectInputStream(file);
-				wDict = (Dictionary) input.readObject();
-				input.close();
-			}catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else
-		{
-			wDict = new Dictionary();
-		}
-	}
-	
-	public void save()
-	{
-		try
-		{  
-			FileOutputStream file = new FileOutputStream("docs.ser");
-			ObjectOutputStream output = new ObjectOutputStream(file);   
-			output.writeObject(docList);
-			output.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		
-		try
-		{  
-			FileOutputStream file = new FileOutputStream("dict.ser");
-			ObjectOutputStream output = new ObjectOutputStream(file);   
-			output.writeObject(wDict);
-			output.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}*/
 	
 	public void parseDocument(String path) throws FileNotFoundException
 	{
+                //Si el documento no ha sido parseado con anterioridad
 		if(!docList.containsKey(path))
 		{
+                    // Si no es el seed index lo procesa
                     if(!path.contains("seedIndex.txt")){
                         File f = new File(path);
 			Scanner sc = new Scanner(f);
 			sc.useDelimiter("[^a-zA-Z0-9\\'\\-]");
 			
+                        // Agrega el documento a la lista de documentos
 			int actualID = nextID;
 			docList.put(path, actualID);
 			invertedDocList.put(actualID, path);
 			nextID++;
 			
+                        // Crea un diccionario local para el documento y la lista de postings respectivos
 			String word;
 			HashMap<String, PostingsListElement> localDict = new HashMap<String, PostingsListElement>();
                         HashMap<String, Long> posList = new HashMap<String, Long>();
 			
                         int i=0;
+                        // Para cada palabra del documento
 			while(sc.hasNext())
 			{
-                            i++;
-				word = sc.next().toLowerCase();
+                                // Pone la palabra en minuscula y si no esta vacia la procesa
+                                word = sc.next().toLowerCase();
 				if(!word.isEmpty())
 				{
+                                        // Incrementa el contador de palabras del documento y lo agrega al diccionario global
+                                        i++;
 					int id = wDict.addOcurrence(word);
-					
+					// Si no esta contenido en el diccionario local, lo agrega
 					if(!localDict.containsKey(word))
 					{
+                                                // QUE HACE ESTO?
                                                 posList.put(word, pList.actualList * pList.maxListSize + pList.postings.size());
 						PostingsListElement p = pList.append(actualID, id, 1);
 						localDict.put(word, p);
 					}
 					else
 					{
+                                                // Sino incrementa su contador
 						localDict.get(word).tf += 1;
 					}
 				}
-				//System.out.println(word);
 			}
+                        // Cierra el scanner e imprime el documento procesado
 			sc.close();
                         System.out.println(path);
                         
                         // Actualizar postinglist con valores finales
-                        
+                        // COMO LO HACE?
                             for(String key : localDict.keySet())
                             {
                                     if(localDict.get(key) != null)
+                                    {
                                         pList.elementAt(posList.get(key)).tf = localDict.get(key).tf;
-                                        
-                                    //it.remove(); // avoids a ConcurrentModificationException
+                                    }
                             }
                         }
 		}
-		//else
-			//System.out.println(path);
 	}
 	
 	public int fileID(String path)

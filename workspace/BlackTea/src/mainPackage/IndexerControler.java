@@ -11,9 +11,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import mainPackage.PostingsList.PostingsListElement;;
 
 public class IndexerControler
@@ -35,8 +33,6 @@ public class IndexerControler
             // Variables utilizadas por los algoritmos
             File fi;
             int i,j;
-            
-            //System.out.println(Paths.get("").toAbsolutePath().toString() + "\\CrawlerFiles\\");
             
             // Filtro utilizado al elegir documentos a procesar: solo .txt o directorios
             FilenameFilter textFilter = new FilenameFilter()
@@ -62,8 +58,6 @@ public class IndexerControler
                 fileList.add(temp[i]);
             }
             
-            //long startTime = System.currentTimeMillis();
-            //System.out.println("Dir: " + Arrays.toString(workingFolder.listFiles(textFilter)));
             try
             {
                 // Para cada documento de la lista
@@ -92,37 +86,22 @@ public class IndexerControler
                     return;
             }
             
-            
-            /*JOptionPane.showMessageDialog(null, idxr.wDict.toString());
-            JOptionPane.showMessageDialog(null, idxr.pList.toString());
-            idxr.pList.save();
-            JOptionPane.showMessageDialog(null, "It is time");
-            idxr.pList.load();
-            JOptionPane.showMessageDialog(null, idxr.pList.toString());*/
+            // Realiza el merge, calcula los pesos, los escribe y guarda
             idxr.BSBIMerge();
-            //JOptionPane.showMessageDialog(null, idxr.pList.toString());
-            //saveIndexer(idxr);
-            //idxr.pList.save();
-            
             idxr.calculateWeights();
             idxr.writeWeights();
-            
-            /*long endTime   = System.currentTimeMillis();
-            long totalTime = endTime - startTime;
-            JOptionPane.showMessageDialog(null, "Tiempo durado: " + totalTime);*/
-            
             idxr.pList.save();
             saveIndexer(idxr);
 	}
 	
 	private static Indexer loadIndexer()
 	{
+                // Crea un nuevo indexer y abre el archivo default idx.ser
 		Indexer idxr = new Indexer();
-		
 		File docListFile = new File(indexerPath);
+                // Si existe, carga el objeto indexer desde ahi, sino crea un nuevo
 		if(docListFile.exists())
 		{
-			//System.out.println("Heh");
 			try
 			{
 				FileInputStream file = new FileInputStream(indexerPath);
@@ -140,12 +119,13 @@ public class IndexerControler
 		{
 			idxr = new Indexer();
 		}
-		
+		// Retorna el indexer generado
 		return idxr;
 	}
 	
 	private static void saveIndexer(Indexer idxr)
 	{
+                // Guarda el indexer obtenido en la direccion default: idx.ser
 		try
 		{  
 			FileOutputStream file = new FileOutputStream(indexerPath);
@@ -159,6 +139,7 @@ public class IndexerControler
 	}
         
         public static void deleteSerFiles(){
+            // Borra los documentos con terminacion .ser utilizados por el programa
             File folder = new File(Paths.get("").toAbsolutePath().toString());
             File fList[] = folder.listFiles();
             for (int i = 0; i < fList.length; i++) {
