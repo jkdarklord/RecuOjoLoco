@@ -1,4 +1,3 @@
-
 package mainPackage;
 
 import java.util.HashMap;
@@ -29,12 +28,14 @@ import static mainPackage.MyCrawler.directory;
 
 public class Indexer implements Serializable
 {
-	public HashMap<String, Integer> docList;
-	public HashMap<Integer, String> invertedDocList;
-	public PostingsList pList;
-	public Dictionary wDict;
-	private int nextID;
-        public WeightVectors[] weights; 
+        // Listas de documentos analizados
+	public HashMap<String, Integer> docList;            // Mapeo path -> id de documentos
+	public HashMap<Integer, String> invertedDocList;    // Mapeo id -> path de documentos
+        private int nextID;                                 // Siguiente id de documento disponible
+        
+	public PostingsList pList;                          // Lista de postings
+	public Dictionary wDict;                            // Diccionario de palabras
+        public WeightVectors[] weights;                     // Arreglo de vectores de peso, uno para cada documento
 	
 	public Indexer()
 	{
@@ -46,6 +47,10 @@ public class Indexer implements Serializable
 		nextID = 0;
 	}
 	
+        /*
+         * Parsea individualmente un documenta, agregando sus ocurrencias en la lista de postings
+         * Tambien mantiene la cantidad de apariciones y guarda estas como tf para cada elemento
+         */
 	public void parseDocument(String path) throws FileNotFoundException
 	{
                 //Si el documento no ha sido parseado con anterioridad
@@ -98,8 +103,9 @@ public class Indexer implements Serializable
 			sc.close();
                         System.out.println(path);
                         
-                        // Actualizar postinglist con valores finales
-                        // COMO LO HACE?
+                        // Actualizar postinglist con valores finales de tf
+                        // Itera sobre el diccionario local, actualizando en la posicion donde se guarda
+                        // el elemento en la postingsList el tf
                             for(String key : localDict.keySet())
                             {
                                     if(localDict.get(key) != null)
@@ -111,6 +117,9 @@ public class Indexer implements Serializable
 		}
 	}
 	
+        /*
+         * Retorna el id de un archivo a partir de su path absoluto
+         */
 	public int fileID(String path)
 	{
 		int res = 0;
@@ -119,6 +128,9 @@ public class Indexer implements Serializable
 		return res;
 	}
 	
+        /*
+         * Retorna el path absoluto de un archivo a partir de su id
+         */
 	public String pathFromDocID(int docID)
 	{
 		String res = null;
@@ -126,11 +138,17 @@ public class Indexer implements Serializable
 			res = invertedDocList.get(docID);
 		return res;
 	}
-        
+    
+    /*
+     * Quicksort de listas de Postings, sorteando por ID
+     */
     public static PostingsListElement[] sort(PostingsListElement[] inputArr) {
         return quickSort(0, inputArr.length - 1, inputArr);
     }
  
+    /*
+     * Metodo utilizado para el quicksort
+     */
     private static PostingsListElement[] quickSort(int lowerIndex, int higherIndex, PostingsListElement[] array) {
          
         int i = lowerIndex;
@@ -156,10 +174,16 @@ public class Indexer implements Serializable
         return array;
     }
     
+    /*
+     * Quicksort para sortear resultados por coseno
+     */
     public PostingsListElement[] sortByCosine(String [] tokens, PostingsListElement[] inputArr) {
         return quickSortCosine(0, inputArr.length - 1, inputArr,tokens);
     }
  
+    /*
+     * Metodo utilizado para el quicksort
+     */
     private  PostingsListElement[] quickSortCosine(int lowerIndex, int higherIndex, PostingsListElement[] array,String [] tokens) {
         WeightVectors queryVector = queryTFIDF(tokens);
         int i = lowerIndex;
@@ -187,13 +211,18 @@ public class Indexer implements Serializable
     }
     
     
- 
+    /*
+     * Metodo utilizado para el quicksort
+     */
     private static void exchangeElements(int i, int j, PostingsListElement[] array) {
         PostingsListElement temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
     
+    /*
+     * Metodo utilizado para el quicksort
+     */
     public static PostingsListElement[] intersectArrays(PostingsListElement[] a, PostingsListElement[] b){
         a=Indexer.sort(a);
         b=Indexer.sort(b);
@@ -214,6 +243,9 @@ public class Indexer implements Serializable
         return trimArray(c,ci); 
     }
     
+    /*
+     * Metodo utilizado para el quicksort
+     */
     public static PostingsListElement[] trimArray(PostingsListElement[] array, int newLength){
         PostingsListElement[] arr = new PostingsListElement[newLength];
         for(int i=0;i<newLength;i++){
@@ -222,6 +254,9 @@ public class Indexer implements Serializable
         return arr;
     }
     
+    /*
+     * Metodo utilizado para el quicksort
+     */
     public static PostingsListElement[] findMatches (ArrayList<PostingsListElement[]> list){
         if(list.size()==0){
             return null;
@@ -240,6 +275,9 @@ public class Indexer implements Serializable
         }
     }
     
+    /*
+     * Ejecuta el ultimo paso del algoritmo BSBI, realizando un merge sobre todos los bloques
+     */
     public void BSBIMerge()
     {
     	int totalBlocks = pList.nextList;
@@ -258,40 +296,49 @@ public class Indexer implements Serializable
         
     	if(totalBlocks > 1)
     	{
-    		while(totalBlocks > 1)
+            // Mientras se tenga mas de un bloque se debe hacer el merge
+            while(totalBlocks > 1)
             {
                 pList.maxListSize *= 2;
                 for(int i = 0; i < totalBlocks; i += 2)
                 {
+                    // Cargar los dos siguientes bloques
                     pList.load(i);
                     PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
                     pList.postings.toArray(l1);
                     pList.load(i + 1);
                     PostingsListElement[] l2 = new PostingsListElement[pList.postings.size()];
                     pList.postings.toArray(l2);
+                    
+                    // Escribir el l1 la concatenacion de l1 + l2
                     l1 = Arrays.copyOf(l1, l1.length + l2.length);
                     System.arraycopy(l2, 0, l1, l1.length, l2.length);
                     pList.postings = null;
+                    
+                    // Poner en la posicion i / 2 el nuevo bloque
                     pList.actualList = i / 2;
                     if(l2 != null)
                     {
-                    	
+                    	// Hacer sort de los dos bloques
                     	Arrays.sort(l1);
                     }
                     
                     // Meter a PostingsList ArrayList y guardar
                     pList.postings = new ArrayList<PostingsListElement>();
-                	for(int j = 0; j < l1.length; j++)
+                    for(int j = 0; j < l1.length; j++)
                     {
                 		pList.postings.add(l1[j]);
                     }
                     pList.save();
                 }
             }
+            
+            // Solo queda una lista
             pList.nextList = 1;
     	}
     	else
     	{
+                // Aunque sea un bloque, es necesario ordenarlo de todas formas
     		pList.load(0);
     		PostingsListElement[] l1 = new PostingsListElement[pList.postings.size()];
     		pList.postings.toArray(l1);
@@ -307,6 +354,9 @@ public class Indexer implements Serializable
         updateIndex();
     }
     
+    /*
+     * Actualizar el diccionario, agregando para cada termino la posicion de la postingsList donde este empieza
+     */
     public void updateIndex()
     {
     	HashMap<Integer, Integer> temp = new HashMap<Integer, Integer>();
@@ -314,6 +364,8 @@ public class Indexer implements Serializable
     	int previous = -1;
     	for(int i = 0; i < pList.postings.size(); ++i)
     	{
+                // Cuando el id del elemento cambie, significa que es un nuevo termino
+                // Esta es su posicion inicial en la lista de postings
     		if( pList.postings.get(i).termID != previous )
     		{
     			temp.put(pList.postings.get(i).termID, i);
@@ -321,6 +373,7 @@ public class Indexer implements Serializable
     		previous = pList.postings.get(i).termID;
     	}
     	
+        // Actualizar el diccionario con las localizaciones
     	Collection<DictionaryElement> x = wDict.map.values();
     	Iterator itr = x.iterator();
     	while(itr.hasNext())
@@ -330,6 +383,9 @@ public class Indexer implements Serializable
     	}
     }
     
+    /*
+     * Retorna la lista de postings de un termino
+     */
     public PostingsListElement[] getPostings(String term)
     {
     	if(!wDict.map.containsKey(term))
@@ -340,12 +396,18 @@ public class Indexer implements Serializable
        
     }
     
+    /*
+     * Retorna el DF de un termino
+     */
     public int getTermDF(String term){
         if(!wDict.map.containsKey(term))
     		return 0;
     	return wDict.map.get(term).df;
     }
     
+    /*
+     * Retorna el TF de un termino en un documento
+     */
     public int getTermTF(String term, int docID){
         PostingsListElement[] postings = getPostings(term);
         int i=0;
@@ -362,6 +424,9 @@ public class Indexer implements Serializable
         
     }
     
+    /*
+     * Retorna el TF de un termino en una lista de terminos
+     */
     public int manuallyGetTermTF(String term, String [] queryTokens){
         int count = 0;
         for(int i=0;i<queryTokens.length;i++){
@@ -372,7 +437,9 @@ public class Indexer implements Serializable
         return count;
     }
     
-
+    /*
+     * Calcula todos los vectores de pesos
+     */
     public void calculateWeights(){
         weights=new WeightVectors[invertedDocList.size()];
         
@@ -381,6 +448,9 @@ public class Indexer implements Serializable
         }
     }
     
+    /*
+     * Retorna el vector de pesos de un documento
+     */
     public WeightVectors calculateTFIDFWeightVector(int docID){
         //JOptionPane.showMessageDialog(null,"Voy a procesar el archivo " + pathFromDocID(docID));
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
@@ -391,6 +461,8 @@ public class Indexer implements Serializable
                 String actualTerm = (String )pair.getKey();
                 double df = getTermDF(actualTerm);
                 double tf = getTermTF(actualTerm,docID);
+                
+                // Calcular el peso TF-IDF del termino j
                 if(tf>0){
                     TFIDF.termWeight[j]= ((1 + Math.log10(tf))*(Math.log10(invertedDocList.size()/df)));
                 }
@@ -403,6 +475,9 @@ public class Indexer implements Serializable
             return TFIDF;
     }
     
+    /*
+     * Retorna el vector de pesos tf-idf de un vector de terminos
+     */
     public WeightVectors queryTFIDF (String [] queryTokens){
         WeightVectors TFIDF =new WeightVectors(wDict.map.size());
         Iterator it = wDict.map.entrySet().iterator();
@@ -422,7 +497,10 @@ public class Indexer implements Serializable
         return TFIDF;
     }
     
-    
+    /*
+     * Escribe los pesos de los vectores en un archivo
+     * Utilizar para la depuracion de los vectores
+     */
     public void writeWeights(){
         try{
         File file = new File(directory, "pesos.txt");
