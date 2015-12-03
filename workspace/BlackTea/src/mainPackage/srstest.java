@@ -30,11 +30,11 @@ public class srstest extends javax.swing.JFrame {
         initComponents();
         configuration = new Configuration();
         // Set path to acoustic model.
-        configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
+        configuration.setAcousticModelPath("./edu/cmu/sphinx/models/en-us/en-us");
         // Set path to dictionary.
-        configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
+        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/1850.dic");
         // Set language model.
-        configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/1850.lm");
         
         try
         {
@@ -93,13 +93,12 @@ public class srstest extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        recognizer.startRecognition(true);
-        while(true)
-        {
-            SpeechResult result = recognizer.getResult();
-            jLabel1.setText(result.getHypothesis());
-        }
-        //recognizer.stopRecognition();
+            recognizer.startRecognition(true);
+            jLabel1.setText("Start speaking now");
+            String h = "";
+            h += recognizer.getResult().getHypothesis() + " ";
+            jLabel1.setText(h);
+            recognizer.stopRecognition();
         
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 

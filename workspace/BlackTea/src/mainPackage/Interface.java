@@ -1,7 +1,12 @@
 package mainPackage;
 
+import edu.cmu.sphinx.api.Configuration;
+import edu.cmu.sphinx.api.LiveSpeechRecognizer;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import mainPackage.PostingsList.PostingsListElement;
 
@@ -20,8 +25,29 @@ public class Interface extends javax.swing.JFrame {
     /**
      * Creates new form Interface
      */
+    
+    // Elementos de reconocimiento de voz
+    Configuration configuration;
+    LiveSpeechRecognizer recognizer;
+    
     public Interface() {
         initComponents();
+        
+        // Inicializar reconocimiento de voz
+        configuration = new Configuration();
+        // Set path to acoustic model.
+        configuration.setAcousticModelPath("./edu/cmu/sphinx/models/en-us/en-us");
+        // Set path to dictionary.
+        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/1850.dic");
+        // Set language model.
+        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/1850.lm");
+        
+        try
+        {
+            recognizer = new LiveSpeechRecognizer(configuration);
+        } catch (IOException ex) {
+            Logger.getLogger(srstest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -164,7 +190,7 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addGap(74, 74, 74)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,7 +247,11 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new srstest().setVisible(true);
+        recognizer.startRecognition(true);
+        String h = "";
+        h += recognizer.getResult().getHypothesis() + " ";
+        recognizer.stopRecognition();
+        System.out.println(h);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
