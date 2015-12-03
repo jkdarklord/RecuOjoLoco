@@ -15,10 +15,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Locale;
+import javax.speech.Central;
+import javax.speech.synthesis.Synthesizer;
+import javax.speech.synthesis.SynthesizerModeDesc;
+import javax.speech.synthesis.SynthesizerProperties;
+import javax.speech.synthesis.Voice;
+import static javax.speech.synthesis.Voice.AGE_TEENAGER;
+import static javax.speech.synthesis.Voice.GENDER_FEMALE;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,9 +41,34 @@ public class SearchInterface extends javax.swing.JFrame {
     
     ArrayList<String>resultNames;
     ArrayList<String>resultSummaries;
+    String selectedURL;
+    Synthesizer synthesizer;
+    boolean isReading;
     
     public SearchInterface() {
         initComponents();
+        tableResults.getTableHeader().setVisible(false);
+        btnAccessURL.setVisible(false);
+        btnReading.setVisible(false);
+        try{
+            System.setProperty("freetts.voices",
+           "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+            Central.registerEngineCentral
+            ("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
+            synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+            
+            synthesizer.allocate();
+            synthesizer.resume();
+            
+            Voice voice = new Voice(null,GENDER_FEMALE,AGE_TEENAGER,null);
+            SynthesizerProperties synthesizerProperties = synthesizer.getSynthesizerProperties();
+            synthesizerProperties.setVoice(voice);
+            
+        }
+        catch(Exception e)
+          {
+            System.err.println(e);
+          }
     }
 
     /**
@@ -50,8 +84,19 @@ public class SearchInterface extends javax.swing.JFrame {
         textSearchBar = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
         buttonFeelingLucky = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableResults = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textSummary = new javax.swing.JTextArea();
+        btnAccessURL = new javax.swing.JButton();
+        btnReading = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -75,6 +120,40 @@ public class SearchInterface extends javax.swing.JFrame {
             }
         });
 
+        tableResults.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tableResults.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableResultsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableResults);
+
+        textSummary.setColumns(20);
+        textSummary.setLineWrap(true);
+        textSummary.setRows(5);
+        jScrollPane2.setViewportView(textSummary);
+
+        btnAccessURL.setText("Open link in browser");
+        btnAccessURL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccessURLActionPerformed(evt);
+            }
+        });
+
+        btnReading.setText("Start reading");
+        btnReading.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReadingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,14 +165,28 @@ public class SearchInterface extends javax.swing.JFrame {
                         .addComponent(labelTitle)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 272, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 49, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonSearch)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(buttonFeelingLucky, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(221, 221, 221)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonFeelingLucky, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(274, 274, 274))))
+                                .addGap(401, 401, 401)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(52, 52, 52))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAccessURL)
+                .addGap(18, 18, 18)
+                .addComponent(btnReading, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +199,15 @@ public class SearchInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSearch)
                     .addComponent(buttonFeelingLucky))
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAccessURL)
+                    .addComponent(btnReading))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,10 +219,10 @@ public class SearchInterface extends javax.swing.JFrame {
         doSearch(false);
     }//GEN-LAST:event_buttonSearchActionPerformed
 
-    private void accessURL(String urlPath){
+    private void accessURL(){
         if (Desktop.isDesktopSupported()) {
             try {
-               URI url = new URI(""+ urlPath);
+               URI url = new URI(""+ selectedURL);
                Desktop.getDesktop().browse(url);
               } 
             catch (Exception e) { 
@@ -142,29 +243,101 @@ public class SearchInterface extends javax.swing.JFrame {
         doSearch(true);
     }//GEN-LAST:event_buttonFeelingLuckyActionPerformed
 
+    private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
+        // TODO add your handling code here:
+        int row = tableResults.getSelectedRow();
+        int col = tableResults.getSelectedColumn();
+        selectedURL = (String)tableResults.getValueAt(row, col);
+        textSummary.setText(resultSummaries.get(row));
+        textSummary.setCaretPosition(0);
+        btnAccessURL.setVisible(true);
+        btnReading.setVisible(true);
+        isReading = false;
+    }//GEN-LAST:event_tableResultsMouseClicked
+
+    private void btnAccessURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessURLActionPerformed
+        accessURL();
+    }//GEN-LAST:event_btnAccessURLActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        try{
+            synthesizer.deallocate();
+        }
+        catch(Exception e)
+        {
+            System.err.println(e);
+        }
+        
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnReadingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadingActionPerformed
+        // TODO add your handling code here:
+        if(!isReading){
+            isReading=true;
+            btnReading.setText("Stop reading");
+            try{
+                synthesizer.speakPlainText(textSummary.getText(), null);
+                synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+              }
+            catch(Exception e)
+            {
+                System.err.println(e);
+            }
+        }
+        else{
+            isReading=false;
+            btnReading.setText("Start reading");
+            //code for pausing audio
+            //see http://atifullahbaig.blogspot.com/2012/07/building-text-to-speech-java.html
+        }
+        
+    }//GEN-LAST:event_btnReadingActionPerformed
+
     private void doSearch(boolean special){
         PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
         if(results==null){
             JOptionPane.showMessageDialog(null,"Your search didn't return any results.\nPlease try again using different keywords.");
         }
         else{
+            DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
+            model.setRowCount(0);
+            int limit = results.length;
+            if (special){
+                limit = 1;
+            }
             resultNames=new ArrayList<String>();
             resultSummaries=new ArrayList<String>();
-            
-            for(int i=0;i<results.length;i++){
-                try{
-                    BufferedReader bufferedReader = new BufferedReader(new FileReader(IndexerControler.idxr.pathFromDocID(results[i].docID)));       
-                    resultNames.add(bufferedReader.readLine());
-                    resultSummaries.add(bufferedReader.readLine());
+            try{   
+                    
+                for(int i=0;i<limit;i++){
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(IndexerControler.idxr.pathFromDocID(results[i].docID)));    
+                    String currentResult = bufferedReader.readLine();
+                    String line;
+                    while((line=bufferedReader.readLine())==null){
+                    //nothing
+                    }
+                    String currentSummary=bufferedReader.readLine() + bufferedReader.readLine() + bufferedReader.readLine();
+                    if(currentSummary.length()>=600){
+                        resultNames.add(currentResult);
+                        resultSummaries.add(currentSummary);
+
+                        if(special){
+                            selectedURL = currentResult;
+                            textSummary.setText(currentSummary + "\nRead more by opening this website...");
+                        }
+                        else{
+                            model.addRow(new Object[]{currentResult});
+                        }
+                    }
                     bufferedReader.close();
                 }
+            }
                 catch(IOException ex){
                     System.out.println(ex);
                 }
                 
-            }
             printResults();
-            loadButtonMatrix();
         }
     }
     
@@ -174,36 +347,6 @@ public class SearchInterface extends javax.swing.JFrame {
             System.out.println(resultNames.get(i)+": " + resultSummaries.get(i));
         }
           
-    }
-    
-    private void loadButtonMatrix(){
-        int gridSize = 5; // try 4 or 5, etc. buttons are always 50x50
-        JFrame frame = new JFrame();
-
-        JPanel panel = new JPanel(new GridLayout(gridSize, gridSize, 1, 20));
-        int counter = 0;
-
-        for (int i = 0; i < gridSize; i++) {
-          for (int j = 0; j < gridSize; j++) {
-            JPanel buttonPanel = new JPanel(new GridBagLayout());
-            GridBagConstraints c = new GridBagConstraints();
-            c.anchor = GridBagConstraints.CENTER;
-            
-            if(counter<resultNames.size()){
-              JButton button = new JButton(resultNames.get(counter));
-              //button.setPreferredSize(new Dimension(50, 50));
-              buttonPanel.add(button, c);
-              panel.add(buttonPanel);
-              counter++;
-            }
-          }
-        }
-        /*panel.revalidate();
-        panel.repaint();
-        this.repaint();*/
-        frame.setContentPane(panel);
-        frame.pack();
-        frame.setVisible(true);
     }
     
     /**
@@ -242,9 +385,15 @@ public class SearchInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccessURL;
+    private javax.swing.JButton btnReading;
     private javax.swing.JButton buttonFeelingLucky;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JTable tableResults;
     private javax.swing.JTextField textSearchBar;
+    private javax.swing.JTextArea textSummary;
     // End of variables declaration//GEN-END:variables
 }

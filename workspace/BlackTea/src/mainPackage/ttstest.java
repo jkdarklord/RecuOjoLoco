@@ -65,6 +65,11 @@ public class ttstest extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnRead.setText("Read");
         btnRead.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +118,11 @@ public class ttstest extends javax.swing.JFrame {
           }
           //synthesizer.deallocate();
     }//GEN-LAST:event_btnReadActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"chao chao");
+    }//GEN-LAST:event_formWindowClosed
 
     private void exitWindow() throws Exception{
         synthesizer.deallocate();
