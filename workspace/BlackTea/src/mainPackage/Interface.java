@@ -91,7 +91,9 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setLabel("Sphinx's Revelation");
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setText("Speech Recognition");
+        jButton2.setActionCommand("Speech Recognition");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -190,20 +192,22 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jButton1)
-                .addGap(74, 74, 74)
-                .addComponent(jButton2)
+                .addGap(54, 54, 54)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(46, 46, 46)
                 .addComponent(labelMainTitle)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 23, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -234,12 +238,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_actionAboutActionPerformed
 
     private void actionDeleteIndexFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionDeleteIndexFilesActionPerformed
-        int confirmation = JOptionPane.showConfirmDialog( null, "Are you sure you want to delete ALL index files?",
-                            "Confirm crawling without limit", JOptionPane.YES_NO_OPTION);
-        if(confirmation==JOptionPane.YES_OPTION){
-            IndexerControler.deleteSerFiles();
-            IndexerControler.initialize();
-        }
+        deleteIndex();
     }//GEN-LAST:event_actionDeleteIndexFilesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -249,11 +248,46 @@ public class Interface extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         recognizer.startRecognition(true);
         String h = "";
-        h += recognizer.getResult().getHypothesis() + " ";
+        h += recognizer.getResult().getHypothesis();
         recognizer.stopRecognition();
         System.out.println(h);
+        
+        switch(h)
+        {
+            case "NEW CRAWLING":
+                new CrawlingInterface().setVisible(true);
+                break;
+                
+            case "SEARCH":
+            case "NEW SEARCH":
+                new SearchInterface().setVisible(true);
+                break;
+            
+            case "DELETE FILES":
+            case "DELETE CRAWLED FILES":
+                new DeleteCrawledFilesInterface().setVisible(true);
+                break;
+            
+            case "DELETE INDEX":
+                deleteIndex();
+                break;
+            
+            case "CRAWLED DOMAINS":
+                new CrawledSitesInterface().setVisible(true);
+                break;
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void deleteIndex()
+    {
+        int confirmation = JOptionPane.showConfirmDialog( null, "Are you sure you want to delete ALL index files?",
+            "Confirm crawling without limit", JOptionPane.YES_NO_OPTION);
+        if(confirmation==JOptionPane.YES_OPTION){
+            IndexerControler.deleteSerFiles();
+            IndexerControler.initialize();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
