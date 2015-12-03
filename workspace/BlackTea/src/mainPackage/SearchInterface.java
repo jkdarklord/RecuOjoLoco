@@ -278,7 +278,7 @@ public class SearchInterface extends javax.swing.JFrame {
             btnReading.setText("Stop reading");
             try{
                 synthesizer.speakPlainText(textSummary.getText(), null);
-                synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+                // synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
               }
             catch(Exception e)
             {
@@ -288,7 +288,7 @@ public class SearchInterface extends javax.swing.JFrame {
         else{
             isReading=false;
             btnReading.setText("Start reading");
-            //code for pausing audio
+            synthesizer.cancelAll();
             //see http://atifullahbaig.blogspot.com/2012/07/building-text-to-speech-java.html
         }
         
