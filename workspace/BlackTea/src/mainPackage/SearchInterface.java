@@ -48,6 +48,7 @@ public class SearchInterface extends javax.swing.JFrame {
     String selectedURL;
     Synthesizer synthesizer;
     boolean isReading;
+    int actualResult;
     
     // Elementos de reconocimiento de voz
     Configuration configuration;
@@ -83,9 +84,9 @@ public class SearchInterface extends javax.swing.JFrame {
         // Set path to acoustic model.
         configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
         // Set path to dictionary.
-        configuration.setDictionaryPath("./sphinx/search/8010.dic");
+        configuration.setDictionaryPath("./sphinx/search/7990.dic");
         // Set language model.
-        configuration.setLanguageModelPath("./sphinx/search/8010.lm");
+        configuration.setLanguageModelPath("./sphinx/search/7990.lm");
         
         try {
             recognizer = new LiveSpeechRecognizerExtention(configuration);
@@ -293,6 +294,11 @@ public class SearchInterface extends javax.swing.JFrame {
 
     private void btnReadingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadingActionPerformed
         // TODO add your handling code here:
+        read();
+    }//GEN-LAST:event_btnReadingActionPerformed
+
+    private void read()
+    {
         if(!isReading){
             isReading=true;
             btnReading.setText("Stop reading");
@@ -311,9 +317,8 @@ public class SearchInterface extends javax.swing.JFrame {
             synthesizer.cancelAll();
             //see http://atifullahbaig.blogspot.com/2012/07/building-text-to-speech-java.html
         }
-        
-    }//GEN-LAST:event_btnReadingActionPerformed
-
+    }
+    
     private void speechRecognitionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speechRecognitionButtonActionPerformed
         recognizer.openRecognitionLine();
         recognizer.startRecognition(true);
@@ -328,10 +333,60 @@ public class SearchInterface extends javax.swing.JFrame {
             case "SUBMIT QUERY":
             case "QUERY":
                 doSearch(false);
+                
+            case "FIRST":
+            case "FIRST RESULT":
+                if(isReading)
+                    read();
+                actualResult = 0;
+                setActualResult();
+                break;
+                
+            case "NEXT":
+            case "NEXT RESULT":
+                if(isReading)
+                    read();
+                actualResult++;
+                if(actualResult >= tableResults.getRowCount())
+                {
+                    //Reset
+                    actualResult = 0;
+                }
+                setActualResult();
+                break;
+            
+            case "OPEN":
+            case "OPEN LINK":
+            case "OPEN RESULT":
+                accessURL();
+                break;
+            
+            case "READ":
+            case "START READING":
+            case "READ RESULT":  
+                if(!isReading)
+                    read();
+                break;
+            
+            case "STOP":
+            case "STOP READING":
+                if(isReading)
+                    read();
                 break;
         }
     }//GEN-LAST:event_speechRecognitionButtonActionPerformed
-
+    
+    private void setActualResult()
+    {
+        selectedURL = (String)tableResults.getValueAt(actualResult, 0);
+        textSummary.setText(resultSummaries.get(actualResult));
+        textSummary.setCaretPosition(0);
+        btnAccessURL.setVisible(true);
+        btnReading.setVisible(true);
+        isReading = false;
+        read();
+    }
+    
     private void doSearch(boolean special){
         PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
         if(results==null){
@@ -376,6 +431,7 @@ public class SearchInterface extends javax.swing.JFrame {
                 }
                 
             printResults();
+            actualResult = 0;
         }
     }
     

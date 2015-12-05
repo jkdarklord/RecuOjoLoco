@@ -1,4 +1,4 @@
-Language model created by QuickLM on Fri Dec  4 01:22:26 EST 2015
+Language model created by QuickLM on Sat Dec  5 00:53:52 EST 2015
 Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
 
 The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
@@ -7,57 +7,64 @@ The code that was used to produce this language model is available in Open Sourc
 Please visit http://www.speech.cs.cmu.edu/tools/ for more information
 
 The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
-This model based on a corpus of 6 sentences and 12 words
+This model based on a corpus of 8 sentences and 13 words
 
 \data\
-ngram 1=12
-ngram 2=16
-ngram 3=12
+ngram 1=13
+ngram 2=19
+ngram 3=15
 
 \1-grams:
--0.9031 </s> -0.3010
--0.9031 <s> -0.2430
--1.6812 FIRST -0.2730
--1.6812 LINK -0.2430
--1.6812 NEXT -0.2730
--1.6812 OPEN -0.2919
--1.6812 QUERY -0.2430
--1.6812 READ -0.2730
--1.6812 READING -0.2430
--1.2041 RESULT -0.2430
--1.6812 START -0.2919
--1.6812 SUBMIT -0.2919
+-0.8893 </s> -0.3010
+-0.8893 <s> -0.2410
+-1.7924 FIRST -0.2795
+-1.7924 LINK -0.2410
+-1.7924 NEXT -0.2795
+-1.7924 OPEN -0.2940
+-1.7924 QUERY -0.2410
+-1.4914 READ -0.2162
+-1.4914 READING -0.2410
+-1.3153 RESULT -0.2410
+-1.7924 START -0.2868
+-1.7924 STOP -0.2868
+-1.7924 SUBMIT -0.2940
 
 \2-grams:
--1.0792 <s> FIRST 0.0000
--1.0792 <s> NEXT 0.0000
--1.0792 <s> OPEN 0.0000
--1.0792 <s> READ 0.0000
--1.0792 <s> START 0.0000
--1.0792 <s> SUBMIT 0.0000
+-1.2041 <s> FIRST 0.0000
+-1.2041 <s> NEXT 0.0000
+-1.2041 <s> OPEN 0.0000
+-0.9031 <s> READ 0.0000
+-1.2041 <s> START 0.0000
+-1.2041 <s> STOP 0.0000
+-1.2041 <s> SUBMIT 0.0000
 -0.3010 FIRST RESULT 0.0000
 -0.3010 LINK </s> -0.3010
 -0.3010 NEXT RESULT 0.0000
 -0.3010 OPEN LINK 0.0000
 -0.3010 QUERY </s> -0.3010
--0.3010 READ RESULT 0.0000
+-0.6021 READ </s> -0.3010
+-0.6021 READ RESULT 0.0000
 -0.3010 READING </s> -0.3010
 -0.3010 RESULT </s> -0.3010
 -0.3010 START READING 0.0000
+-0.3010 STOP READING 0.0000
 -0.3010 SUBMIT QUERY 0.0000
 
 \3-grams:
 -0.3010 <s> FIRST RESULT
 -0.3010 <s> NEXT RESULT
 -0.3010 <s> OPEN LINK
--0.3010 <s> READ RESULT
+-0.6021 <s> READ </s>
+-0.6021 <s> READ RESULT
 -0.3010 <s> START READING
+-0.3010 <s> STOP READING
 -0.3010 <s> SUBMIT QUERY
 -0.3010 FIRST RESULT </s>
 -0.3010 NEXT RESULT </s>
 -0.3010 OPEN LINK </s>
 -0.3010 READ RESULT </s>
 -0.3010 START READING </s>
+-0.3010 STOP READING </s>
 -0.3010 SUBMIT QUERY </s>
 
 \end\
