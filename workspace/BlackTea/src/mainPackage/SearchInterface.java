@@ -5,6 +5,8 @@
  */
 package mainPackage;
 
+import edu.cmu.sphinx.api.Configuration;
+import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
@@ -45,6 +49,10 @@ public class SearchInterface extends javax.swing.JFrame {
     Synthesizer synthesizer;
     boolean isReading;
     
+    // Elementos de reconocimiento de voz
+    Configuration configuration;
+    LiveSpeechRecognizer recognizer;
+    
     public SearchInterface() {
         initComponents();
         tableResults.getTableHeader().setVisible(false);
@@ -69,6 +77,23 @@ public class SearchInterface extends javax.swing.JFrame {
           {
             System.err.println(e);
           }
+        
+        // Inicializar reconocimiento de voz
+        configuration = new Configuration();
+        // Set path to acoustic model.
+        configuration.setAcousticModelPath("./edu/cmu/sphinx/models/en-us/en-us");
+        // Set path to dictionary.
+        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/search/8010.dic");
+        // Set language model.
+        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/search/8010.lm");
+        
+        try
+        {
+            recognizer = new LiveSpeechRecognizer(configuration);
+        } catch (IOException ex) {
+            //Logger.getLogger(srstest.class.getName()).log(Level.SEVERE, null, ex);
+            ;
+        }
     }
 
     /**
@@ -83,13 +108,13 @@ public class SearchInterface extends javax.swing.JFrame {
         labelTitle = new javax.swing.JLabel();
         textSearchBar = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
-        buttonFeelingLucky = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResults = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         textSummary = new javax.swing.JTextArea();
         btnAccessURL = new javax.swing.JButton();
         btnReading = new javax.swing.JButton();
+        speechRecognitionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -110,13 +135,6 @@ public class SearchInterface extends javax.swing.JFrame {
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchActionPerformed(evt);
-            }
-        });
-
-        buttonFeelingLucky.setText("I'm feeling lucky");
-        buttonFeelingLucky.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFeelingLuckyActionPerformed(evt);
             }
         });
 
@@ -154,6 +172,14 @@ public class SearchInterface extends javax.swing.JFrame {
             }
         });
 
+        speechRecognitionButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        speechRecognitionButton.setText("Speech Recognition");
+        speechRecognitionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speechRecognitionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,20 +193,21 @@ public class SearchInterface extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 49, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(buttonSearch)
-                                        .addGap(56, 56, 56)
-                                        .addComponent(buttonFeelingLucky, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(221, 221, 221)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(273, 273, 273))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(401, 401, 401)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(52, 52, 52))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonSearch)
+                .addGap(77, 77, 77)
+                .addComponent(speechRecognitionButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAccessURL)
@@ -193,13 +220,12 @@ public class SearchInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(labelTitle)
-                .addGap(69, 69, 69)
-                .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(83, 83, 83)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSearch)
-                    .addComponent(buttonFeelingLucky))
-                .addGap(18, 18, 18)
+                    .addComponent(speechRecognitionButton))
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
@@ -207,7 +233,7 @@ public class SearchInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAccessURL)
                     .addComponent(btnReading))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,11 +263,6 @@ public class SearchInterface extends javax.swing.JFrame {
             doSearch(false);
         }
     }//GEN-LAST:event_formKeyPressed
-
-    private void buttonFeelingLuckyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFeelingLuckyActionPerformed
-        // TODO add your handling code here:
-        doSearch(true);
-    }//GEN-LAST:event_buttonFeelingLuckyActionPerformed
 
     private void tableResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableResultsMouseClicked
         // TODO add your handling code here:
@@ -293,6 +314,22 @@ public class SearchInterface extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnReadingActionPerformed
+
+    private void speechRecognitionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speechRecognitionButtonActionPerformed
+        recognizer.startRecognition(true);
+        String h = "";
+        h += recognizer.getResult().getHypothesis();
+        recognizer.stopRecognition();
+        System.out.println(h);
+        
+        switch(h)
+        {
+            case "SUBMIT QUERY":
+            case "QUERY":
+                doSearch(false);
+                break;
+        }
+    }//GEN-LAST:event_speechRecognitionButtonActionPerformed
 
     private void doSearch(boolean special){
         PostingsList.PostingsListElement[] results = IndexerControler.searchQueryOnIndex2(textSearchBar.getText().toLowerCase());
@@ -387,11 +424,11 @@ public class SearchInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccessURL;
     private javax.swing.JButton btnReading;
-    private javax.swing.JButton buttonFeelingLucky;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JButton speechRecognitionButton;
     private javax.swing.JTable tableResults;
     private javax.swing.JTextField textSearchBar;
     private javax.swing.JTextArea textSummary;

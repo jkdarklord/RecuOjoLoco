@@ -38,15 +38,16 @@ public class Interface extends javax.swing.JFrame {
         // Set path to acoustic model.
         configuration.setAcousticModelPath("./edu/cmu/sphinx/models/en-us/en-us");
         // Set path to dictionary.
-        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/1850.dic");
+        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/main/1850.dic");
         // Set language model.
-        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/1850.lm");
+        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/main/1850.lm");
         
         try
         {
             recognizer = new LiveSpeechRecognizer(configuration);
         } catch (IOException ex) {
-            Logger.getLogger(srstest.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(srstest.class.getName()).log(Level.SEVERE, null, ex);
+            ;
         }
     }
 
