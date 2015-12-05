@@ -1,0 +1,16 @@
+http://en.touhouwiki.net/wiki/Touhou_Wiki:Guidelines
+This page is to list all possible editing guidelines that should define how editors go about creating certain kinds of pages, as well as other information pertaining to editing this wiki.
+Should any of these guidelines be changed, please update this page. Use the talk page to discuss these guidelines.
+If you're new to Wiki editing, please check out this helpful guide on Wikipedia.
+Subpages are used to organize content under the main article (e.g. Undefined Fantastic Object/Translation/Reimu A's Scenario). See Undefined Fantastic Object as an example of how subpages are implemented.
+Linking back is a strange inclusion not found anywhere else. Remove linking back lines if pages become subpaged. Please discuss this on the talk page.
+"Return to Touhou Wiki" lines, meaning the links at the top of certain pages that link back to the main page, are no longer acceptable. Remove them on sight.
+Spoilers should only be used to conceal information regarding game endings for a period of one year after the game's release. After that, they should be removed.
+Under no circumstances should there be a Miscellaneous page anywhere on the wiki. Please move all information in these pages to other suitable pages. If you can't find a suitable page, then it's likely it doesn't belong on the wiki in the first place. If worse comes to worst, put them in a section labeled Trivia on the parent page so that people are aware that the information needs to somehow be recategorized.
+If you are writing some kind of fanfiction, be sure to categorize it under Category:User Content for convenience.
+See: Undefined Fantastic Object for example
+If anything is unclear, please use the Undefined Fantastic Object page as an example.
+Please transclude template documentation from nameoftemplate/doc. For reference, see Template:MusicRoom and Template:MusicRoom/doc.
+All covers and banners should be categorized appropriately. The following templates should be used:
+The following should be checked:
+

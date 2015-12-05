@@ -1,0 +1,9 @@
+http://en.touhouwiki.net/wiki/Special:RequestAccount
+Complete and submit the following form to request a user account.
+Make sure that you first read the Terms of Service before requesting an account.
+Once the account is approved, you will be emailed a notification message and the account will be usable at login.
+A confirmation message will be sent to your email address once you submit this request. The address will not be published. Please respond by clicking on the confirmation link provided by the email. Finally, your password will be emailed to you when your account is created.
+Try to include any relevant credentials in your biography below.
+Personal biography (plain text only):
+
+

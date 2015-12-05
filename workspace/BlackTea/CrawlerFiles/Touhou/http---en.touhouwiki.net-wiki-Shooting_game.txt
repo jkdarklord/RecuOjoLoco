@@ -1,0 +1,5 @@
+http://en.touhouwiki.net/wiki/Shooting_game
+Shooting games are made in two types - horizontal and vertical. Vertical STGs are games where screen scroll from top to bottom (like in Touhou). Horizontal STGs are game where screen scroll from left to right or from right to left. There are games (but it's rare) that use both style. Good example is 3D game Ether Vapor where screen changes from vertical to horizontal and even isometric view.
+Shooting games usually feature solely the player character fighting against the entirety of the enemy forces. Most shooting games are split into several stages, ending with a fight against a boss before one can progress to the next stage. In addition, while the enemies fought may take a lot of punishment before they go down, the player character generally requires only one hit to be destroyed, adding to the challenge.
+Examples of STGs include the Touhou series, Galaga, Gradius, DoDonPachi, ESP Ra.De., Mushihimesama, Twinbee, Psyvariar, Shikigami no Shiro, Ikaruga, Radiant Silvergun, Salamander, Einhänder, R-Type, Giga Wing, Blazing Star, Zero Wing, and many others.
+

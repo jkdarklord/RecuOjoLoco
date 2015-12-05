@@ -1,0 +1,5 @@
+http://en.touhouwiki.net/wiki/Touhou_Wiki:Administrators
+Here's the list of Touhou Wiki staff. Stewards are site-wide technical administrators; while they may do editing and local wiki administration here and there, they mainly provide deep technical support. Bureaucrats and Administrators are the local wiki admins; they control user rights configuration and file/article management. Please contact your local wiki admin staff for help with deleting pages and categories, editing locked pages, etc.
+
+Note: The French Touhou Wiki is its own project, so for any issues with touhou.net please contact their administration directly.
+

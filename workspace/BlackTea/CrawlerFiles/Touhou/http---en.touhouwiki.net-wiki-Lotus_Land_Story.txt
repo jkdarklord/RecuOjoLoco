@@ -1,0 +1,19 @@
+http://en.touhouwiki.net/wiki/Lotus_Land_Story
+ZUN Soft
+Amusement Makers
+Trial: July 2, 1998 Full: August 14, 1998
+Vertical Danmaku Shooting Game
+Single-Player Story Mode
+PC-98 (NEC PC-9800 / EPSON PC-486/586)
+Touhou Gensoukyou (Fantasy Land) ~ Lotus Land Story (東方幻想郷　～ Lotus Land Story) is the fourth game of the Touhou Project, which was released at Comiket 54 in the summer of 1998. In this game, Marisa Kirisame returns as a playable character for the second time, and the powerful youkai Yuuka Kazami makes her first appearance.
+This game features two playable characters to choose from, with two different attack types each. Reimu Hakurei can pepper a wide area of the screen with weaker attacks, while Marisa Kirisame relies on her power to compensate for her narrower attack spread. The bombs also exhibit unique behavior and damage amounts depending upon the character chosen.
+Lotus Land Story is the first game in the Touhou Project to feature bombs that auto-collect items, graze counting, the ability to move more slowly by holding the shift key, and a non-trivial scoring system that involves the collection of special dream items that boost the player's ultimate scoring potential. The game's scoring system also marks the series' first instance of score bonuses for the elimination of bullets following the defeat of mid-bosses and bosses.
+This is the first game to use the word Gensokyo (幻想郷), which is in the title, but it didn't suggest that this word is the name of the world the Touhou Project is in until later on.
+Lotus Land Story returned to the theme of Story of Eastern Wonderland, taking on the format of a bullet hell game. However, the number of bullets was greatly increased, and a second player character was added (Marisa Kirisame).
+Following the events of the previous games, youkai soon begin to swarm the Hakurei Shrine, prompting Reimu Hakurei and Marisa Kirisame to separately head for a lake in the mountains, which appears to be the source of a tremendous power surge. The two reach the gateway underneath the lake, which teleports them to a strange Fantasy World, in which the mansion Mugenkan exists, where the mastermind supposedly is.
+The main game included twenty-two tracks, including separate themes for Stage 1 depending on your player character. However, in Mystic Square's music room, as well as in Akyu's Untouched Score vol.1, there were six more tracks listed that ZUN decided not to use in the game. Also included in Akyu's Untouched Score are slightly different versions of Decoration Battle and Inanimate Dream.
+Lotus Land Story was developed during 1998, and saw its official release at Comiket 54. Apparently, ZUN only sold two to three hundred copies of the game. On September 19, 2002, all the five PC-98 games have officially stopped being sold, a little after Embodiment of Scarlet Devil was released.
+The soundtrack was later included in the special music room of Mystic Square, and then on Akyu's Untouched Score vol.1, which was released at Reitaisai 3 on May 21, 2006.
+ZUN (太田順也 Ota Jun'ya) — Program, Graphic, Music
+東京電機大学 Amusement Makers Aotaka Kaoru (かおる) P.M.D. 提供 M.Kakihara(KAJA)
+

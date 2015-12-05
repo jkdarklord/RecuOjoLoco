@@ -1,0 +1,19 @@
+http://en.touhouwiki.net/wiki/Phantasmagoria_of_Dim.Dream
+ZUN Soft
+Amusement Makers
+Trial: Unknown Full: December 29, 1997
+Competitive Vertical Danmaku Shooting Game
+Single-Player Story Mode, 2-Player Vs Mode
+PC-98 (NEC PC-9800 / EPSON PC-486/586)
+Touhou Yumejikuu (Dream Dimension) ~ Phantasmagoria of Dim.Dream (東方夢時空　～ Phantasmagoria of Dim.Dream) is the third game in the Touhou Project, which was released for the Japanese PC-98 in 1997. It is a unique game where two players indirectly battle one another by charging and releasing charge attacks and bombs upon the other player. This style of gameplay has also been featured in the ninth Touhou series game, Phantasmagoria of Flower View. It is also the first Touhou game to feature joypad support.
+This game is a vertical danmaku shooting game, where two characters engage in danmaku gameplay within individual and separate play areas (aka. split-screen). Upon meeting certain conditions, players are able to unleash a variety of character-specific Spell Attacks upon their opponents in an attempt to whittle down their remaining health points.
+In Story Mode, the player will face nine opponents, each more capable than the previous. Phantasmagoria of Dim.Dream also features a Match Play Mode where the player may face off against AI opponents or compete against other players, as well as watch AI vs. AI matches.
+At the time of Comiket 52, when Highly Responsive to Prayers and Story of Eastern Wonderland were first being sold, ZUN stated in the manual of Story of Eastern Wonderland that the third game was about 48% complete. However, the title for the game at the time was "Touhou Yumejikan" (東方夢時館, lit. "eastern time mansion"), and was originally supposed to be a horizontally-scrolling shooting game, similar to Gradius. No further mention of this idea is made in the files included with this game, however.
+ZUN does suggest that people familiar with Twinkle Star Sprites would have an easy time getting into Phantasmagoria of Dim.Dream, because the gameplay is very similar (though this game has more bullets).
+While enjoying a quiet morning walk, the local shrine maiden Reimu Hakurei stumbles across some curious ruins a short distance from the Hakurei Shrine's gateway. As only one person is allowed into the ruins - and will be well-rewarded for doing so - seven characters engage in a big battle.
+When the winner enters the ruins, however, they find Chiyuri Kitashirakawa and Yumemi Okazaki, residents of the outside world who have come to Gensokyo in their Probability Space Hypervessel. Their motives turn out to be less than acceptable for the heroine.
+Phantasmagoria of Dim.Dream originally contained 21 different tracks. Many of them were designed for one of the player characters specifically, due to the nature of the game. It also has the first song dedicated to Reimu, Eastern Mystic Love Consultation. Later on, however, three more unused tracks were revealed and included on Akyu's Untouched Score vol.4. All three songs were unused because according to ZUN, they didn't fit any character in particular. The music was then compiled into Akyu's Untouched Score vol.4, which was released at Comiket 73 at the end of 2007, ten years after the game was first sold.
+ZUN also rearranged Reincarnation, Mima's theme, for his first CD Dolls in Pseudo Paradise. He also put a MIDI version and an alternate MP3 version on his website.
+The game was under development for most of the latter part of 1997, and was released officially at Comiket 53 on December 29, 1997.
+On September 19, 2002, shortly after Embodiment of Scarlet Devil was released, all five PC-98 games officially stopped being sold.
+

@@ -51,7 +51,7 @@ public class SearchInterface extends javax.swing.JFrame {
     
     // Elementos de reconocimiento de voz
     Configuration configuration;
-    LiveSpeechRecognizer recognizer;
+    LiveSpeechRecognizerExtention recognizer;
     
     public SearchInterface() {
         initComponents();
@@ -81,19 +81,18 @@ public class SearchInterface extends javax.swing.JFrame {
         // Inicializar reconocimiento de voz
         configuration = new Configuration();
         // Set path to acoustic model.
-        configuration.setAcousticModelPath("./edu/cmu/sphinx/models/en-us/en-us");
+        configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
         // Set path to dictionary.
-        configuration.setDictionaryPath("./edu/cmu/sphinx/models/blacktea/search/8010.dic");
+        configuration.setDictionaryPath("./sphinx/search/8010.dic");
         // Set language model.
-        configuration.setLanguageModelPath("./edu/cmu/sphinx/models/blacktea/search/8010.lm");
+        configuration.setLanguageModelPath("./sphinx/search/8010.lm");
         
-        try
-        {
-            recognizer = new LiveSpeechRecognizer(configuration);
+        try {
+            recognizer = new LiveSpeechRecognizerExtention(configuration);
         } catch (IOException ex) {
-            //Logger.getLogger(srstest.class.getName()).log(Level.SEVERE, null, ex);
-            ;
+            Logger.getLogger(SearchInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -316,10 +315,12 @@ public class SearchInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReadingActionPerformed
 
     private void speechRecognitionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speechRecognitionButtonActionPerformed
+        recognizer.openRecognitionLine();
         recognizer.startRecognition(true);
         String h = "";
         h += recognizer.getResult().getHypothesis();
         recognizer.stopRecognition();
+        recognizer.closeRecognitionLine();
         System.out.println(h);
         
         switch(h)
