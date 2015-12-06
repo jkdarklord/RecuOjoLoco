@@ -3,11 +3,13 @@
 	<item value="C:\Users\Artist\Desktop\RecuOjoLoco\External JARs" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="FatJarPackageWizard">
 		<item value="C:\Users\B25201\Desktop\workspace.xml" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="DeploymentSettings - WebcrawlerTest" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="WebcrawlerTest\dist\WebcrawlerTest.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="Interface - BlackTea" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="BlackTea\dist\BlackTea.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="2" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="BlackTea\dist\BlackTea.jar"/>
+			<item value="BlackTea/dist/BlackTea.jar"/>
 			<item value="WebcrawlerTest/dist/WebcrawlerTest.jar"/>
 			<item value="C:\Documents and Settings\zayda\Desktop\WebcrawlerTest.jar"/>
 			<item value="C:\Users\B25201\Desktop\Calculo de distancias.jar"/>

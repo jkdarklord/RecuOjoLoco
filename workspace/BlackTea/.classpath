@@ -23,5 +23,17 @@
 	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/tagsoup-1.2.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/tika-core-1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/tika-parsers-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/sphinx4-core-5prealpha-20151122.150846-2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/sphinx4-data-5prealpha-20151122.150853-2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/freetts.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/freetts-jsapi10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/cmu_time_awb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/cmudict04.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/cmulex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/cmutimelex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/en_us.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/jsapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Artist/Desktop/RecuOjoLoco/External JARs/mbrola.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
